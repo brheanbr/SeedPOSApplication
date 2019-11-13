@@ -1,51 +1,70 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
   <div class="container">
-
-      <a class="navbar-brand">SEED</a>
-      <ul class="navbar-nav mr-auto" >
-        <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" [routerLink]="['/dashboard']"  routerLinkActive="router-link-active" >Dashboard</a>
-        </li>
-        <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link">Cashier</a>
-        </li>
-        <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link">Departments</a>
-        </li>
-        <li class="nav-item" routerLinkActive="active" >
-          <div class="dropdown" dropdown>
-              <a class="dropdown-toggle nav-link" dropdownToggle>Admin Setup
-                  <div class="dropdown-menu" *dropdownMenu>
-                  <a class="dropdown-item" [routerLink]="['/developer-login']" routerLinkActive="router-link-active"><i class="fa fa-cash-register mr-2"></i>Add Cashier</a>
-                  <div class="dropdown-divier" [routerLink]="['/developer-login']" routerLinkActive="router-link-active"></div>
-                  <a class="dropdown-item" [routerLink]="['/developer-login']" routerLinkActive="router-link-active"><i class="fa fa-city mr-2"></i>Add Department</a>
-                  <div class="dropdown-divier" [routerLink]="['/developer-login']" routerLinkActive="router-link-active"></div>
-                  <a class="dropdown-item" [routerLink]="['/developer-login']" routerLinkActive="router-link-active"><i class="fa fa-pepper-hot mr-2"></i>Add Items</a>
-                  <div class="dropdown-divier" [routerLink]="['/developer-login']" routerLinkActive="router-link-active"></div>
-                  <a class="dropdown-item" [routerLink]="['/developer-login']" routerLinkActive="router-link-active"><i class="fa fa-clipboard mr-2"></i>Reports</a>
-                  </div>
-              </a>
+      <a class="navbar-brand" [routerLink]="['/home']" routerLinkActive="router-link-active" >SEED</a>
+        <div class="collapse navbar-collapse" id="collapseBasic" [collapse]="isCollapsed" [isAnimated]="true">
+           <ul class="navbar-nav mr-auto" *ngIf="loggedin()">
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['/dashboard']"  routerLinkActive="router-link-active" >Dashboard</a>
+              </li>
+              <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link">Cashier</a>
+              </li>
+              <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link">Departments</a>
+              </li>
+              <li class="nav-item" routerLinkActive="active" >
+                <div class="dropdown" dropdown>
+                    <a class="dropdown-toggle nav-link" dropdownToggle>Admin Setup
+                        <div class="dropdown-menu" *dropdownMenu>
+                        <a class="dropdown-item" [routerLink]="['/developer-login']" routerLinkActive="router-link-active"><i class="fa fa-cash-register mr-2"></i>Add Cashier</a>
+                        <div class="dropdown-divier" [routerLink]="['/developer-login']" routerLinkActive="router-link-active"></div>
+                        <a class="dropdown-item" [routerLink]="['/developer-login']" routerLinkActive="router-link-active"><i class="fa fa-city mr-2"></i>Add Department</a>
+                        <div class="dropdown-divier" [routerLink]="['/developer-login']" routerLinkActive="router-link-active"></div>
+                        <a class="dropdown-item" [routerLink]="['/developer-login']" routerLinkActive="router-link-active"><i class="fa fa-pepper-hot mr-2"></i>Add Items</a>
+                        <div class="dropdown-divier" [routerLink]="['/developer-login']" routerLinkActive="router-link-active"></div>
+                        <a class="dropdown-item" [routerLink]="['/developer-login']" routerLinkActive="router-link-active"><i class="fa fa-clipboard mr-2"></i>Reports</a>
+                        </div>
+                    </a>
+                </div>
+              </li>
+            </ul>
           </div>
-        </li>
-      </ul>
-    <div  class="dropdown" dropdown>
-        <span class="mr-1">
-          <i class="fa fa-key"></i>
-        </span>
-          <a class="dropdown-toggle" dropdownToggle>
-            SIGN IN
-            <div class="dropdown-menu mt-2" *dropdownMenu>
-            <a class="dropdown-item" [routerLink]="['/developer-login']" routerLinkActive="router-link-active"><i class="fa fa-seedling mr-1"></i>Establishment</a>
-            <div class="dropdown-divier"></div>
-            <a class="dropdown-item" [routerLink]="['/developer-login']" routerLinkActive="router-link-active" ><span></span><i class="fa fa-laptop-code mr-1"></i>Developer</a>
-            </div>
-          </a> 
-    </div>
+          <div *ngIf="!loggedin()">
+              <div *ngIf="isCollapsed" class="dropdown" dropdown>
+                  <span class="mr-1">
+                    <i class="fa fa-key"></i>
+                  </span>
+                    <a class="dropdown-toggle" dropdownToggle>
+                      SIGN IN
+                      <div class="dropdown-menu mt-2" *dropdownMenu>
+                      <a class="dropdown-item" [routerLink]="['/developer-login']" routerLinkActive="router-link-active"><i class="fa fa-seedling mr-1"></i>Establishment</a>
+                      <div class="dropdown-divier"></div>
+                      <a class="dropdown-item" [routerLink]="['/developer-login']" routerLinkActive="active" ><span></span><i class="fa fa-laptop-code mr-1"></i>Developer</a>
+                      </div>
+                    </a> 
+                </div>
+          </div>
+          <div class="" *ngIf="loggedin()">
+            <a (click)="logout()"><i class="fa fa-sign-out-alt mr-2"></i>SIGN OUT</a>
+          </div>
+            
+            <span>
+              <button type="button" class="navbar-toggler" data-toggle="collapse" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"  data-target="#collapseBasic" aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            </span>
+    </div>       
+   </nav>    
+          
+        
+    
         
       <!-- <form class="form-inline my-2 my-lg-0">
         <input  required name="username" class="form-control mr-sm-2" type="text" placeholder="Username" >
         <input required name="password" class="form-control mr-sm-2" type="password" placeholder="Password">
         <button [disabled]="!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
       </form> -->
-  </div>
-  </nav>
+  
+
+
+  

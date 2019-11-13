@@ -1,3 +1,54 @@
-<p>
-  developer-dashboard works!
-</p>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col col-12 col-md-4 jumbotron mr-4 bg-primary">
+      <h4>Admin Panel</h4><hr>
+            <div class="row" >
+                <div class="container btnHead pointerCursor col col-12" (click)="isContentOpen = !isContentOpen" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic" routerLinkActive="active">
+                   <div class="container mt-4">
+                     <h5><i class="fas fa-user-cog mr-5"></i>{{this.adminauth.decodedToken.family_name}}
+                     <i *ngIf="!isContentOpen" class="fas fa-caret-up ml-5"></i>
+                     <i *ngIf="isContentOpen" class="fas fa-caret-down ml-5"></i></h5>
+                   </div>
+                </div> 
+                <div id="collpaseBasic" class="container btnBody col col-12" [collapse]="isContentOpen" [isAnimated]="true">
+                      <mat-list>
+                        <mat-list-item class="list-item pointerCursor" (click)="addCompanyOpen = true ; checkerAddCompany()">
+                          <div class="list-item">
+                            <h6>Add Company</h6>
+                          </div>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item class="list-item pointerCursor" (click)="companySetupOpen = true ; checkerCompanySetup()">
+                          <div class="list-item">
+                            <h6>Company Setup</h6>
+                          </div>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item>
+                          <div class="list-item pointerCursor">
+                            <h6>Manage my Account</h6>
+                          </div>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item>
+                          <div class="list-item pointerCursor">
+                            <h6>Create Admin Account</h6>
+                          </div>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+                      </mat-list>
+                </div> 
+              </div><hr>
+            <div class="row">
+              <div class="container btnHead pointerCursor col col-12">
+                Establishment
+              </div>
+            </div>
+        
+    </div>
+    <div class="col jumbotron jumbotron-fuild bg-primary">
+      <div *ngIf="addCompanyOpen"><app-add-company></app-add-company></div>
+      <div *ngIf="companySetupOpen"><app-company-setup></app-company-setup></div>
+    </div>
+  </div>
+</div>

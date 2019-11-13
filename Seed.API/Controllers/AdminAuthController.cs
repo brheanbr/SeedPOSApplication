@@ -51,10 +51,11 @@ namespace Seed.API.Controllers
             var adminFromRepo = await _repo.Login(adminForLoginDto.UserName.ToLower(), adminForLoginDto.Password);   
 
             if (adminFromRepo == null)
-                return Unauthorized();
+                return BadRequest("Wrong username or password!");
 
             var claims = new[]{
                 new Claim(ClaimTypes.NameIdentifier, adminFromRepo.Id.ToString()),
+                new Claim(ClaimTypes.Surname, adminFromRepo.Name),
                 new Claim(ClaimTypes.Name, adminFromRepo.Username)
             };
 

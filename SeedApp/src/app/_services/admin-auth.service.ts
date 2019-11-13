@@ -1,0 +1,33 @@
+import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { JwtHelperService } from '@auth0/angular-jwt';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AdminAuthService {
+decodedToken: any;
+jwtHelper = new JwtHelperService();
+
+constructor(private http: HttpClient) { }
+
+  adminLogin(model: any) {
+    return this.http.post(environment.baseUrl + 'adminauth/login', model).pipe(
+      map((response: any) => {
+        const admin = response;
+        if (admin) {
+          localStorage.setItem('token', admin.token);
+          this.decodedToken = this.jwtHelper.decodeToken(admin.token);
+        }
+      })
+    );
+  }
+
+  loggedIn() {
+    const token = localStorage.getItem('token');
+    return !this.jwtHelper.isTokenExpired(token);
+  }
+
+}
