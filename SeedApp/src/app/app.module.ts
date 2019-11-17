@@ -4,7 +4,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwtModule } from '@auth0/angular-jwt';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatListModule} from '@angular/material/list';
@@ -21,6 +21,8 @@ import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { HomeComponent } from './home/home.component';
 import { AddCompanyComponent } from './developer/developer-dashboard/add-company/add-company.component';
 import { CompanySetupComponent } from './developer/developer-dashboard/company-setup/company-setup.component';
+import { AdminAuthService } from './_services/admin-auth.service';
+import { DeveloperDashboardResolver } from './_resolver/developer-dashboard.resolver';
 
 
 
@@ -41,6 +43,7 @@ export function tokenGetter() {
    imports: [
       BrowserModule,
       FormsModule,
+      ReactiveFormsModule,
       BrowserAnimationsModule,
       CollapseModule.forRoot(),
       BsDropdownModule.forRoot(),
@@ -59,7 +62,11 @@ export function tokenGetter() {
          }
       })
    ],
-   providers: [ErrorInterceptorProvider],
+   providers: [
+      ErrorInterceptorProvider,
+      AdminAuthService,
+      DeveloperDashboardResolver
+      ],
    bootstrap: [
       AppComponent
    ]

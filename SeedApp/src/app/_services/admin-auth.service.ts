@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Company } from '../_models/company';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,11 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AdminAuthService {
 decodedToken: any;
 jwtHelper = new JwtHelperService();
+companies: Company[];
 
 constructor(private http: HttpClient) { }
 
-  adminLogin(model: any) {
+  adminLogin(model: Company) {
     return this.http.post(environment.baseUrl + 'adminauth/login', model).pipe(
       map((response: any) => {
         const admin = response;
@@ -28,6 +30,14 @@ constructor(private http: HttpClient) { }
   loggedIn() {
     const token = localStorage.getItem('token');
     return !this.jwtHelper.isTokenExpired(token);
+  }
+
+  companyRegister(company: Company) {
+    return this.http.post(environment.baseUrl + 'adminauth/register-company', company);
+  }
+
+  getCompanies() {
+    return this.http.get(environment.baseUrl + 'adminauth/companies');
   }
 
 }

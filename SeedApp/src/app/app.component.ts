@@ -10,7 +10,7 @@ import { AdminAuthService } from './_services/admin-auth.service';
 export class AppComponent {
   jtwHelper = new JwtHelperService();
 
-  constructor(private adminauth: AdminAuthService){}
+  constructor(private adminauth: AdminAuthService) {}
 
   ngOnInit() {
     const token = localStorage.getItem('token');

@@ -5,6 +5,7 @@ import { DeveloperDashboardComponent } from './developer/developer-dashboard/dev
 import { HomeComponent } from './home/home.component';
 import { AdminauthGuard } from './_guards/adminauth.guard';
 import { AddCompanyComponent } from './developer/developer-dashboard/add-company/add-company.component';
+import { DeveloperDashboardResolver } from './_resolver/developer-dashboard.resolver';
 
 
 export const appRoutes: Routes = [
@@ -17,7 +18,7 @@ export const appRoutes: Routes = [
         runGuardsAndResolvers: 'always',
         canActivate: [AdminauthGuard],
         children: [
-            { path: 'developer-dashboard', component: DeveloperDashboardComponent }
+            { path: 'developer-dashboard', component: DeveloperDashboardComponent, resolve: {companies: DeveloperDashboardResolver}}
         ]
 
     },

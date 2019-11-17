@@ -8,5 +8,6 @@ namespace Seed.API.Data
         public DataContext(DbContextOptions<DataContext> options) : base (options){}
         
         public DbSet<Admin> Admin{get; set;}
+        public DbSet<Company> Companies{ get; set; }
     }
 }

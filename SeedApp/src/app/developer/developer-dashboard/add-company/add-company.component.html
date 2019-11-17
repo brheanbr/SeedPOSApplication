@@ -1,9 +1,98 @@
-<p class="mt-5">
-  add-company works!add-company works!
-  add-company works!
-  add-company works!
-  add-company works!
-  add-company works!
-  add-company works!
-  add-company works!
-</p>
+<div class="container">
+  <h3 class="text-center">Register New Company</h3>
+  <div class="row">
+    <div class="container col col-12">
+      <div class="jumbotron">
+          <form [formGroup]="registerCompany" (ngSubmit)="register()">
+              <div class="row">
+                  <div class="form-group col col-md-12 col-lg-6 col-12">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text"><i class="fa fa-user"></i></div>
+                        </div>
+                        <input type="text" [ngClass]="{'is-invalid': registerCompany.get('companyUsername').errors && registerCompany.get('companyUsername').touched}" 
+                        class="form-control" formControlName="companyUsername" placeholder="Username" >
+                        <div class="invalid-feedback">Username is required!</div>
+                        </div>
+      
+                  </div>
+                  <div class="form-group col col-md-12 col-lg-6 col-12">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fa fa-asterisk"></i></div>
+                      </div>
+                      <input type="password" [ngClass]="{'is-invalid': registerCompany.get('companyPassword').errors && registerCompany.get('companyPassword').touched}" 
+                      class="form-control" formControlName="companyPassword" placeholder="Password" >
+                      <div class="invalid-feedback" *ngIf="registerCompany.get('companyPassword').hasError('required') && registerCompany.get('companyPassword').touched">Password is required!</div>
+                      <div class="invalid-feedback" *ngIf="registerCompany.get('companyPassword').hasError('minlength') && registerCompany.get('companyPassword').touched">Password required 4-8 characters!</div>
+                      <div class="invalid-feedback" *ngIf="registerCompany.get('companyPassword').hasError('maxlength') && registerCompany.get('companyPassword').touched">Password required 4-8 characters!</div>
+                    </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="form-group col col-md-12 col-lg-6 col-12">
+                    <label for="companyName">Company Name:</label>
+                        <input id="companyName" type="text" [ngClass]="{'is-invalid': registerCompany.get('companyName').errors && registerCompany.get('companyName').touched}" 
+                        class="form-control" formControlName="companyName" placeholder="Company Name" >
+                        <div class="invalid-feedback">Input Company Name!</div>
+                  </div>
+                  <div class="form-group col col-md-12 col-lg-6 col-12">
+                    <label for="companyOwner">Company Owner:</label>
+                      <input id="companyOwner" type="text" [ngClass]="{'is-invalid': registerCompany.get('companyOwner').errors && registerCompany.get('companyOwner').touched}" 
+                      class="form-control" formControlName="companyOwner" placeholder="Company Owner" >
+                      <div class="invalid-feedback">Input Company Owner Name!</div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="form-group col col-md-12 col-lg-6 col-12">
+                    <label for="contactNumber">Contact Number:</label>
+                        <input id="contactNumber" type="text" [ngClass]="{'is-invalid': registerCompany.get('contactNumber').errors && registerCompany.get('contactNumber').touched}" 
+                        class="form-control" formControlName="contactNumber" placeholder="Contact Number" >
+                        <div class="invalid-feedback">Input Contact Number!</div>
+                  </div>
+                  <div class="form-group col col-md-12 col-lg-6 col-12">
+                    <label for="companyAddress">Company Address:</label>
+                      <input id="companyAddress" type="text" [ngClass]="{'is-invalid': registerCompany.get('companyAddress').errors && registerCompany.get('companyAddress').touched}" 
+                      class="form-control" formControlName="companyAddress" placeholder="Address" >
+                      <div class="invalid-feedback">Input Company Address!</div>
+                  </div>
+              </div>
+              <div class="row">
+      
+                    <div class="form-group col col-md-12 text-right">
+                        <button class="btn btn-success mr-1" [disabled]="!registerCompany.valid"><i class="fa fa-check-square mr-2"></i>Register</button>
+                        <button class="btn btn-danger" (click)="cancel()"><i class="fa fa-window-close mr-2"></i>Cancel</button>
+                    </div>
+       
+                
+              </div>
+            </form>
+      </div>
+    </div>
+  </div>
+
+<div class="container contTable mt-5">
+    <div class="row">
+        <table class="table table-bordered table-hover">
+            <thead class="thead text-center">
+              <tr>
+                <th scope="col" style="width: 2%">ID</th>
+                <th scope="col" style="width: 10%">Company Name</th>
+                <th scope="col" style="width: 10%">Company Owner</th>
+                <th scope="col" style="width: 10%">Contact Number</th>
+                <th scope="col" style="width: 10%">Address</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let company of companies">
+              <tr>
+                <td>{{company.id}}</td>
+                <td>{{company.companyName}}</td>
+                <td>{{company.companyOwner}}</td>
+                <td>{{company.contactNumber}}</td>
+                <td>{{company.companyAddress}}</td>
+              </tr>
+            </tbody>
+        </table>
+    </div> 
+</div>
+</div>

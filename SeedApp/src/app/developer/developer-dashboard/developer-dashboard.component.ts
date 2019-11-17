@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminAuthService } from 'src/app/_services/admin-auth.service';
+import { Company } from 'src/app/_models/company';
+import { AlertifyService } from 'src/app/_services/alertify.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-developer-dashboard',
@@ -11,9 +14,13 @@ export class DeveloperDashboardComponent implements OnInit {
   addCompanyOpen = false;
   companySetupOpen = false;
   isContentOpen = true;
-  constructor(public adminauth: AdminAuthService) { }
+  companies: Company[];
+  constructor(public adminauth: AdminAuthService, private alertify: AlertifyService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.data.subscribe(data => {
+      this.adminauth.companies = data.companies;
+    });
   }
   checkerAddCompany() {
     if (this.addCompanyOpen === true) {
@@ -25,6 +32,7 @@ export class DeveloperDashboardComponent implements OnInit {
       this.addCompanyOpen = false;
     }
   }
+
 
 
 

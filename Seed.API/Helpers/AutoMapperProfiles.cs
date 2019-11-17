@@ -9,6 +9,8 @@ namespace Seed.API.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<AdminForRegisterDto, Admin>();
+            CreateMap<CompanyForRegisterDto, Company>();
+            CreateMap<Company, CompanyToReturnDto>();
         }
     }
 }

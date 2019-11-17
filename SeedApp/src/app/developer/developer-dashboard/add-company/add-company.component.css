@@ -1,0 +1,48 @@
+.thead {
+    background-color: #272b30;
+    color: white;
+}
+
+input {
+    font-size: 15px;
+}
+
+.jumbotron{
+    width: 100%;
+    margin: 5px 0px;
+    max-height: auto;
+    padding-bottom: 2px;
+}
+label {
+    color: white;
+}
+
+h3 {
+    color: white;
+}
+.contTable {
+    margin: auto;
+    height: 300px;
+    overflow: hidden;
+    overflow-y: scroll;
+    border: 5px solid #272b30;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #272b30; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
