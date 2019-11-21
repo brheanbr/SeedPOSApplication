@@ -22,7 +22,9 @@ import { HomeComponent } from './home/home.component';
 import { AddCompanyComponent } from './developer/developer-dashboard/add-company/add-company.component';
 import { CompanySetupComponent } from './developer/developer-dashboard/company-setup/company-setup.component';
 import { AdminAuthService } from './_services/admin-auth.service';
+import { CompanyAuthService } from './_services/company-auth.service';
 import { DeveloperDashboardResolver } from './_resolver/developer-dashboard.resolver';
+import { CompanyLoginComponent } from './company/company-login/company-login.component';
 
 
 
@@ -38,7 +40,8 @@ export function tokenGetter() {
       DeveloperDashboardComponent,
       HomeComponent,
       AddCompanyComponent,
-      CompanySetupComponent
+      CompanySetupComponent,
+      CompanyLoginComponent
    ],
    imports: [
       BrowserModule,
@@ -65,6 +68,7 @@ export function tokenGetter() {
    providers: [
       ErrorInterceptorProvider,
       AdminAuthService,
+      CompanyAuthService,
       DeveloperDashboardResolver
       ],
    bootstrap: [

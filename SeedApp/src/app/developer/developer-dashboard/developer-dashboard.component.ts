@@ -14,7 +14,6 @@ export class DeveloperDashboardComponent implements OnInit {
   addCompanyOpen = false;
   companySetupOpen = false;
   isContentOpen = true;
-  companies: Company[];
   constructor(public adminauth: AdminAuthService, private alertify: AlertifyService, private route: ActivatedRoute) { }
 
   ngOnInit() {

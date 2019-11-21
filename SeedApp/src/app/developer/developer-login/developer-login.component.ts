@@ -14,7 +14,7 @@ export class DeveloperLoginComponent implements OnInit {
   constructor(private adminAuth: AdminAuthService, private router: Router, private alertify: AlertifyService) { }
 
   ngOnInit() {
-    if (localStorage.getItem('token')) {
+    if (this.adminAuth.loggedIn()) {
       this.router.navigate(['developer-dashboard']);
     }
   }
@@ -26,7 +26,7 @@ export class DeveloperLoginComponent implements OnInit {
       }, error => {
         this.alertify.error(error);
       }, () => {
-        this.router.navigate(['/developer-dashboard']);
+        this.router.navigate(['developer-dashboard']);
       }
     );
   }

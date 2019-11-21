@@ -57,11 +57,12 @@
                       <div class="invalid-feedback">Input Company Address!</div>
                   </div>
               </div>
+              
               <div class="row">
       
                     <div class="form-group col col-md-12 text-right">
-                        <button class="btn btn-success mr-1" [disabled]="!registerCompany.valid"><i class="fa fa-check-square mr-2"></i>Register</button>
-                        <button class="btn btn-danger" (click)="cancel()"><i class="fa fa-window-close mr-2"></i>Cancel</button>
+                        <button type="submit" class="submit btn btn-success mr-1" [disabled]="!registerCompany.valid"><i class="fa fa-check-square mr-2"></i>Register</button>
+                        <button type="button" class="btn btn-danger" (click)="cancel()"><i class="fa fa-window-close mr-2"></i>Cancel</button>
                     </div>
        
                 

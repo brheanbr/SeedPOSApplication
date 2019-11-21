@@ -31,7 +31,6 @@ namespace Seed.API.Controllers
             _repo = repo;
 
         }
-        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> Register(AdminForRegisterDto adminForRegisterDto)
         {
@@ -50,7 +49,9 @@ namespace Seed.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(AdminForLoginDto adminForLoginDto)
         {
-            var adminFromRepo = await _repo.Login(adminForLoginDto.UserName.ToLower(), adminForLoginDto.Password);   
+            if(adminForLoginDto.Username == null || adminForLoginDto.Password == null)
+                return BadRequest("Please login username and password!");
+            var adminFromRepo = await _repo.Login(adminForLoginDto.Username.ToLower(), adminForLoginDto.Password);   
 
             if (adminFromRepo == null)
                 return BadRequest("Wrong username or passwords!");
@@ -58,7 +59,7 @@ namespace Seed.API.Controllers
             var claims = new[]{
                 new Claim(ClaimTypes.NameIdentifier, adminFromRepo.Id.ToString()),
                 new Claim(ClaimTypes.Surname, adminFromRepo.Name),
-                new Claim(ClaimTypes.Name, adminFromRepo.Username)
+                new Claim(ClaimTypes.Name, adminFromRepo.AccountType)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
@@ -76,7 +77,6 @@ namespace Seed.API.Controllers
                 token = tokenHandler.WriteToken(token),
             });
         }
-        [AllowAnonymous]
         [HttpPost("register-company")] 
         public async Task<IActionResult> RegisterCompany(CompanyForRegisterDto companyForRegisterDto)
         {
@@ -85,7 +85,8 @@ namespace Seed.API.Controllers
                 return BadRequest("Company Username Already Exist!");
             var companyToCreate = _mapper.Map<Company>(companyForRegisterDto);
             var createdCompany = await _repo.RegisterCompany(companyToCreate, companyForRegisterDto.CompanyPassword);
-            return Ok();
+            var companyToReturn = _mapper.Map<CompanyToReturnDto>(createdCompany);
+            return Ok(companyToReturn);
         }
 
         [HttpGet("companies")]

@@ -37,7 +37,7 @@ namespace Seed.API
         {
               services.AddDbContextPool<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SeedDBConnection")));
               services.AddAutoMapper(typeof(AdminAuthRepository).Assembly);
-              services.AddControllers();
+              services.AddControllers().AddNewtonsoftJson();
               services.AddScoped<IAdminAuthRepository, AdminAuthRepository>();
               services.AddScoped<ICompanyRepository, CompanyRepository>();
               services.AddCors();

@@ -5,6 +5,6 @@ namespace Seed.API.Data
 {
     public interface ICompanyRepository
     {
-         Task<Company> Login(string companyUsername, string password);
+         Task<Company> Login(string username, string password);
     }
 }

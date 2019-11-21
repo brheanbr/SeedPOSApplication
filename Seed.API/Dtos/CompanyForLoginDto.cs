@@ -1,6 +1,6 @@
 namespace Seed.API.Dtos
 {
-    public class AdminForLoginDto
+    public class CompanyForLoginDto
     {
         public string Username { get; set; }
         public string Password { get; set; }

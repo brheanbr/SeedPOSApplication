@@ -10,9 +10,8 @@ import { AlertifyService } from 'src/app/_services/alertify.service';
   styleUrls: ['./add-company.component.css']
 })
 export class AddCompanyComponent implements OnInit {
-  // @Input() companies: Company;
-  companies: Company[];
-  company: Company;
+   companies: any[];
+   company: Company;
   registerCompany: FormGroup;
   constructor(private fb: FormBuilder, private adminAuth: AdminAuthService, private alertify: AlertifyService) { }
 
@@ -38,7 +37,7 @@ export class AddCompanyComponent implements OnInit {
       this.adminAuth.companyRegister(this.company).subscribe(data => {
         this.alertify.success('Successfully Registered');
         this.registerCompany.reset();
-        this.adminAuth.companies.push(this.company);
+        this.adminAuth.companies.push(data);
       }, error => {
         this.alertify.error(error);
       });

@@ -16,7 +16,6 @@ export class AdminauthGuard implements CanActivate {
     if (this.adminAuth.loggedIn()) {
       return true;
     }
-
     this.alertify.error('Please Sign In');
     this.router.navigate(['/developer-login']);
     return false;

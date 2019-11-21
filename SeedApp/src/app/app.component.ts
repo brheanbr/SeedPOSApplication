@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AdminAuthService } from './_services/admin-auth.service';
+import { CompanyAuthService } from './_services/company-auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,12 +11,16 @@ import { AdminAuthService } from './_services/admin-auth.service';
 export class AppComponent {
   jtwHelper = new JwtHelperService();
 
-  constructor(private adminauth: AdminAuthService) {}
+  constructor(private adminAuth: AdminAuthService, private companyAuth: CompanyAuthService) {}
 
   ngOnInit() {
     const token = localStorage.getItem('token');
+    const companytoken = localStorage.getItem('companytoken');
     if (token) {
-      this.adminauth.decodedToken = this.jtwHelper.decodeToken(token);
+      this.adminAuth.decodedToken = this.jtwHelper.decodeToken(token);
+    }
+    if (companytoken) {
+      this.companyAuth.decodedToken = this.jtwHelper.decodeToken(companytoken);
     }
   }
 }
