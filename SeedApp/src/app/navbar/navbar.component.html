@@ -1,16 +1,16 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
   <div class="container">
-      <a class="navbar-brand" [routerLink]="['/home']" routerLinkActive="router-link-active">SEED</a>
+      <a class="disabled navbar-brand" (click)="brandBtn()" routerLinkActive="active">SEED</a>
         <div class="collapse navbar-collapse" id="collapseBasic" [collapse]="isCollapsed" [isAnimated]="true">
            <ul class="navbar-nav mr-auto" *ngIf="companyLoggedin()">
             <li class="nav-item" routerLinkActive="active">
-                <a class="nav-link" [routerLink]="['/dashboard']"  routerLinkActive="router-link-active" >Dashboard</a>
+                <a class="nav-link" [routerLink]="[this.companyAuth.decodedToken.unique_name,'dashboard']" routerLinkActive="router-link-active">Dashboard</a>
+              </li>
+              <li routerLinkActive="active">
+                <a class="nav-link" [routerLink]="[this.companyAuth.decodedToken.unique_name,'cashier']" routerLinkActive="router-link-active">Cashier</a>
               </li>
               <li class="nav-item" routerLinkActive="active">
-                <a class="nav-link">Cashier</a>
-              </li>
-              <li class="nav-item" routerLinkActive="active">
-                <a class="nav-link">Departments</a>
+                <a class="nav-link" [routerLink]="[this.companyAuth.decodedToken.unique_name,'departments']" routerLinkActive="router-link-active">Departments</a>
               </li>
               <li class="nav-item" routerLinkActive="active" >
                 <div class="dropdown" dropdown>
@@ -54,7 +54,7 @@
             </button>
             </span>
     </div>       
-   </nav>    
+   </nav>
           
         
     

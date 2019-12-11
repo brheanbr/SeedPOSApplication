@@ -12,5 +12,6 @@ namespace Seed.API.Dtos
         [Required]
         [StringLength(8, MinimumLength = 4, ErrorMessage = "Password Lenght is 4 to 8 characters")]
         public string Password { get; set; }
+        public string AccountType { get; set; }
     }
 }

@@ -5,4 +5,5 @@ export interface Company {
     companyOwner: string;
     contactNumber: string;
     companyAddress: string;
+    subscription: string;
 }

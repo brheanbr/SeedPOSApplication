@@ -12,8 +12,7 @@ import { CompanyAuthService } from '../_services/company-auth.service';
 export class NavbarComponent implements OnInit {
   isCollapsed = true;
   constructor(private adminAuth: AdminAuthService, private router: Router, private alertify: AlertifyService,
-              private companyAuth: CompanyAuthService) { }
-
+              public companyAuth: CompanyAuthService) { }
   ngOnInit() {
   }
   loggedin() {
@@ -29,6 +28,11 @@ export class NavbarComponent implements OnInit {
     this.alertify.success('Successfully Signed Out!');
     this.adminAuth.decodedToken = null;
     this.router.navigate(['/home']);
+  }
+  brandBtn() {
+    if (this.companyLoggedin()) {
+      this.router.navigate(['home']);
+    }
   }
 
 }

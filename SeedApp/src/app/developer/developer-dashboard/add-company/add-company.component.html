@@ -82,15 +82,17 @@
                 <th scope="col" style="width: 10%">Company Owner</th>
                 <th scope="col" style="width: 10%">Contact Number</th>
                 <th scope="col" style="width: 10%">Address</th>
+                <th scope="col" style="width: 10%">Subscription End</th>
               </tr>
             </thead>
             <tbody *ngFor="let company of companies">
               <tr>
-                <td>{{company.id}}</td>
-                <td>{{company.companyName}}</td>
-                <td>{{company.companyOwner}}</td>
-                <td>{{company.contactNumber}}</td>
-                <td>{{company.companyAddress}}</td>
+                <td>{{company.Id}}</td>
+                <td>{{company.CompanyName}}</td>
+                <td>{{company.CompanyOwner}}</td>
+                <td>{{company.ContactNumber}}</td>
+                <td>{{company.CompanyAddress}}</td>
+                <td>{{company.Subscription.SubscriptionEnd}}</td>
               </tr>
             </tbody>
         </table>

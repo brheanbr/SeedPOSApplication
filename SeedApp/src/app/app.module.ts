@@ -11,7 +11,7 @@ import {MatListModule} from '@angular/material/list';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './company/dashboard/dashboard.component';
 import { appRoutes } from './routes';
 import { DeveloperLoginComponent } from './developer/developer-login/developer-login.component';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
@@ -25,11 +25,22 @@ import { AdminAuthService } from './_services/admin-auth.service';
 import { CompanyAuthService } from './_services/company-auth.service';
 import { DeveloperDashboardResolver } from './_resolver/developer-dashboard.resolver';
 import { CompanyLoginComponent } from './company/company-login/company-login.component';
+import { CompanyResolver } from './_resolver/company.resolver';
+import { CashierComponent } from './company/dashboard/cashier/cashier.component';
+import { DepartmentsComponent } from './company/dashboard/departments/departments.component';
+import { AdminSetupComponent } from './company/dashboard/admin-setup/admin-setup.component';
 
 
 
 export function tokenGetter() {
-   return localStorage.getItem('token');
+   const token = localStorage.getItem('token');
+   const companytoken = localStorage.getItem('companytoken');
+   if (token) {
+      return localStorage.getItem('token');
+   }
+   if (companytoken) {
+      return localStorage.getItem('companytoken');
+   }
 }
 @NgModule({
    declarations: [
@@ -41,7 +52,10 @@ export function tokenGetter() {
       HomeComponent,
       AddCompanyComponent,
       CompanySetupComponent,
-      CompanyLoginComponent
+      CompanyLoginComponent,
+      CashierComponent,
+      DepartmentsComponent,
+      AdminSetupComponent
    ],
    imports: [
       BrowserModule,
@@ -61,7 +75,7 @@ export function tokenGetter() {
          config: {
             tokenGetter,
             whitelistedDomains: ['localhost:5000'],
-            blacklistedRoutes: ['localhost:5000/adminauth']
+            blacklistedRoutes: ['localhost:5000/adminauth', 'localhost:5000/companyauth']
          }
       })
    ],
@@ -69,7 +83,8 @@ export function tokenGetter() {
       ErrorInterceptorProvider,
       AdminAuthService,
       CompanyAuthService,
-      DeveloperDashboardResolver
+      DeveloperDashboardResolver,
+      CompanyResolver
       ],
    bootstrap: [
       AppComponent

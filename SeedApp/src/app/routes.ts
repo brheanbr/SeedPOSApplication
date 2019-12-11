@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './company/dashboard/dashboard.component';
 import { DeveloperLoginComponent } from './developer/developer-login/developer-login.component';
 import { DeveloperDashboardComponent } from './developer/developer-dashboard/developer-dashboard.component';
 import { HomeComponent } from './home/home.component';
@@ -10,6 +10,9 @@ import { CompanyLoginComponent } from './company/company-login/company-login.com
 import { LoginGuard } from './_guards/login.guard';
 import { CompanyLoginGuard } from './_guards/companylogin.guard';
 import { CompanyauthGuard } from './_guards/companyauth.guard';
+import { CompanyResolver } from './_resolver/company.resolver';
+import { CashierComponent } from './company/dashboard/cashier/cashier.component';
+import { DepartmentsComponent } from './company/dashboard/departments/departments.component';
 
 
 export const appRoutes: Routes = [
@@ -30,17 +33,20 @@ export const appRoutes: Routes = [
         runGuardsAndResolvers: 'always',
         canActivate: [AdminauthGuard],
         children: [
-            { path: 'developer-dashboard', component: DeveloperDashboardComponent, resolve: {companies: DeveloperDashboardResolver}}
+            { path: 'developer-dashboard', component: DeveloperDashboardComponent,
+             resolve: {companies: DeveloperDashboardResolver}}
         ]
 
     },
     {
-        path: '',
+        path: ':unique_name', resolve: {company: CompanyResolver},
         runGuardsAndResolvers: 'always',
         canActivate: [CompanyauthGuard],
         children: [
-            { path: 'dashboard', component: DashboardComponent},
+            {path: 'cashier', component: CashierComponent},
+            {path: 'dashboard', component: DashboardComponent},
+            {path: 'departments', component: DepartmentsComponent}
         ]
     },
-    { path: '**', redirectTo: '', pathMatch: 'full'}
+    { path: '**', redirectTo: 'home'}
 ];

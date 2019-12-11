@@ -10,6 +10,7 @@ namespace Seed.API.Models
         public string CompanyOwner { get; set; }
         public string ContactNumber { get; set; }
         public string CompanyAddress { get; set; }
+        public Subscription Subscription { get; set; }
 
     }
 }

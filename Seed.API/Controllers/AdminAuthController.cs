@@ -16,7 +16,8 @@ using Seed.API.Dtos;
 using Seed.API.Models;
 
 namespace Seed.API.Controllers
-{   [Authorize]
+{
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class AdminAuthController : ControllerBase
@@ -24,34 +25,37 @@ namespace Seed.API.Controllers
         private readonly IAdminAuthRepository _repo;
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
-        public AdminAuthController(IAdminAuthRepository repo, IConfiguration config, IMapper mapper)
+        private readonly DataContext _dataContext;
+        public AdminAuthController(IAdminAuthRepository repo, IConfiguration config, IMapper mapper, DataContext dataContext)
         {
+            _dataContext = dataContext;
             _mapper = mapper;
             _config = config;
             _repo = repo;
 
         }
+        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> Register(AdminForRegisterDto adminForRegisterDto)
         {
             adminForRegisterDto.Username = adminForRegisterDto.Username.ToLower();
-            if(await _repo.AdminUserExist(adminForRegisterDto.Username))
+            if (await _repo.AdminUserExist(adminForRegisterDto.Username))
                 return BadRequest("Username Already Exist!");
 
             var adminToCreate = _mapper.Map<Admin>(adminForRegisterDto);
 
             var createdAdmin = await _repo.RegisterAdmin(adminToCreate, adminForRegisterDto.Password);
 
-            return Ok();
-            
+            return Ok(createdAdmin);
+
         }
         [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login(AdminForLoginDto adminForLoginDto)
         {
-            if(adminForLoginDto.Username == null || adminForLoginDto.Password == null)
+            if (adminForLoginDto.Username == null || adminForLoginDto.Password == null)
                 return BadRequest("Please login username and password!");
-            var adminFromRepo = await _repo.Login(adminForLoginDto.Username.ToLower(), adminForLoginDto.Password);   
+            var adminFromRepo = await _repo.Login(adminForLoginDto.Username.ToLower(), adminForLoginDto.Password);
 
             if (adminFromRepo == null)
                 return BadRequest("Wrong username or passwords!");
@@ -77,11 +81,11 @@ namespace Seed.API.Controllers
                 token = tokenHandler.WriteToken(token),
             });
         }
-        [HttpPost("register-company")] 
+        [HttpPost("register-company")]
         public async Task<IActionResult> RegisterCompany(CompanyForRegisterDto companyForRegisterDto)
         {
             companyForRegisterDto.CompanyUsername = companyForRegisterDto.CompanyUsername.ToLower();
-            if(await _repo.CompanyUserExist(companyForRegisterDto.CompanyUsername))
+            if (await _repo.CompanyUserExist(companyForRegisterDto.CompanyUsername))
                 return BadRequest("Company Username Already Exist!");
             var companyToCreate = _mapper.Map<Company>(companyForRegisterDto);
             var createdCompany = await _repo.RegisterCompany(companyToCreate, companyForRegisterDto.CompanyPassword);
@@ -94,7 +98,7 @@ namespace Seed.API.Controllers
         {
             var companies = await _repo.GetCompanies();
             var companiesToReturn = _mapper.Map<IEnumerable<CompanyToReturnDto>>(companies);
-            return Ok(companiesToReturn);
+            return Ok(_dataContext.Companies);
         }
 
     }

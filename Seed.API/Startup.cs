@@ -19,6 +19,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Serialization;
 using Seed.API.Data;
 
 namespace Seed.API
@@ -37,9 +38,16 @@ namespace Seed.API
         {
               services.AddDbContextPool<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SeedDBConnection")));
               services.AddAutoMapper(typeof(AdminAuthRepository).Assembly);
-              services.AddControllers().AddNewtonsoftJson();
+              services.AddAutoMapper(typeof(CompanyRepository).Assembly);
+              services.AddControllers()
+               .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                    options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                });
               services.AddScoped<IAdminAuthRepository, AdminAuthRepository>();
               services.AddScoped<ICompanyRepository, CompanyRepository>();
+              services.AddScoped<IPOSRepository, POSRepository>();
               services.AddCors();
               services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {

@@ -38,8 +38,8 @@ namespace Seed.API.Controllers
 
                 var claims = new[]{
                     new Claim(ClaimTypes.NameIdentifier, companyFromRepo.Id.ToString()),
-                    new Claim(ClaimTypes.Surname, companyFromRepo.CompanyOwner),
-                    new Claim(ClaimTypes.Name, companyFromRepo.CompanyName)
+                    new Claim(ClaimTypes.Surname, companyFromRepo.CompanyName),
+                    new Claim(ClaimTypes.Name, companyFromRepo.CompanyUsername)
                 };
 
                 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
@@ -54,7 +54,7 @@ namespace Seed.API.Controllers
                 var token = tokenHandler.CreateToken(tokenDescriptor);
                 return Ok(new
                 {
-                    token = tokenHandler.WriteToken(token),
+                    companytoken = tokenHandler.WriteToken(token),
                 });
             }
     

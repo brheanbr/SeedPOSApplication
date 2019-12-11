@@ -22,8 +22,8 @@ companyLogin(model: any) {
     map((response: any) => {
       const company = response;
       if (company) {
-        localStorage.setItem('companytoken', company.token);
-        this.decodedToken = this.jwtHelper.decodeToken(company.token);
+        localStorage.setItem('companytoken', company.companytoken);
+        this.decodedToken = this.jwtHelper.decodeToken(company.companytoken);
       }
     })
   );

@@ -17,13 +17,15 @@ export class CompanyLoginComponent implements OnInit {
   }
   login() {
 
+
     this.companyAuth.companyLogin(this.companyModel).subscribe(
       next => {
         this.alertify.success('Successfully Signed In!');
       }, error => {
         this.alertify.error(error);
       } , () => {
-        this.router.navigate(['dashboard']);
+        const uniqueName = this.companyAuth.decodedToken.unique_name;
+        this.router.navigate([uniqueName, 'dashboard']);
       }
     );
   }

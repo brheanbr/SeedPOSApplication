@@ -1,3 +1,5 @@
+using System;
+
 namespace Seed.API.Dtos
 {
     public class CompanyToReturnDto
@@ -7,5 +9,8 @@ namespace Seed.API.Dtos
         public string CompanyOwner { get; set; }
         public string ContactNumber { get; set; }
         public string CompanyAddress { get; set; }
+        public SubsToReturnDto Subscription { get; set; }
+
+      
     }
 }

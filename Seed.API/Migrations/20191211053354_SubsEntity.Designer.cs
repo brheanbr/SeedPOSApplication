@@ -10,8 +10,8 @@ using Seed.API.Data;
 namespace Seed.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191119190832_Added AccountType for admin model")]
-    partial class AddedAccountTypeforadminmodel
+    [Migration("20191211053354_SubsEntity")]
+    partial class SubsEntity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -79,6 +79,42 @@ namespace Seed.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Companies");
+                });
+
+            modelBuilder.Entity("Seed.API.Models.Subscription", b =>
+                {
+                    b.Property<int>("SubscriptionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConnectionString")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("SubscriptionEnd")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("SubscriptionStart")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("SubscriptionId");
+
+                    b.HasIndex("CompanyId")
+                        .IsUnique();
+
+                    b.ToTable("Subscriptions");
+                });
+
+            modelBuilder.Entity("Seed.API.Models.Subscription", b =>
+                {
+                    b.HasOne("Seed.API.Models.Company", "Company")
+                        .WithOne("Subscription")
+                        .HasForeignKey("Seed.API.Models.Subscription", "CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
