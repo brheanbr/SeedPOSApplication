@@ -11,6 +11,6 @@ namespace Seed.API.Data
          Task<bool> AdminUserExist(string username);
          Task<Company> RegisterCompany(Company company, string password);
          Task<bool> CompanyUserExist(string username);
-         Task<IEnumerable<Company>> GetCompanies();
+         
     }
 }

@@ -15,9 +15,9 @@ namespace Seed.API.Controllers
     {
         private readonly IPOSRepository _repo;
         private readonly IMapper _mapper;
-        private readonly DataContext _context;
+        private readonly CompanyDataContext _context;
 
-        public POSController(IPOSRepository repo, IMapper mapper, DataContext context)
+        public POSController(IPOSRepository repo, IMapper mapper, CompanyDataContext context)
         {
             _context = context;
             _mapper = mapper;
@@ -32,7 +32,7 @@ namespace Seed.API.Controllers
 
             var company = await _repo.GetCompany(id);
             var userToReturn = _mapper.Map<CompanyToReturnDto>(company);
-            
+            //new CompanyDataContext(userToReturn.Subscription.ConnectionString);
             return Ok(userToReturn);
 
         }

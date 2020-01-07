@@ -38,9 +38,4 @@ constructor(private http: HttpClient, private router: Router) { }
   companyRegister(company: Company) {
     return this.http.post(environment.baseUrl + 'adminauth/register-company', company);
   }
-
-  getCompanies() {
-    return this.http.get(environment.baseUrl + 'adminauth/companies');
-  }
-
 }

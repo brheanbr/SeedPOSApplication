@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Company } from 'src/app/_models/company';
 import { AdminAuthService } from 'src/app/_services/admin-auth.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
+import { AdminService } from 'src/app/_services/Admin.service';
 
 @Component({
   selector: 'app-add-company',
@@ -13,10 +14,11 @@ export class AddCompanyComponent implements OnInit {
    companies: any[];
    company: Company;
   registerCompany: FormGroup;
-  constructor(private fb: FormBuilder, private adminAuth: AdminAuthService, private alertify: AlertifyService) { }
+  constructor(private fb: FormBuilder, private adminAuth: AdminAuthService, private alertify: AlertifyService,
+              private adminService: AdminService) { }
 
   ngOnInit() {
-    this.companies = this.adminAuth.companies;
+    this.companies = this.adminService.companies;
     this.createRegisterForm();
   }
 
@@ -37,7 +39,7 @@ export class AddCompanyComponent implements OnInit {
       this.adminAuth.companyRegister(this.company).subscribe(data => {
         this.alertify.success('Successfully Registered');
         this.registerCompany.reset();
-        this.adminAuth.companies.push(data);
+        this.adminService.companies.push(data);
       }, error => {
         this.alertify.error(error);
       });

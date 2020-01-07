@@ -10,11 +10,10 @@
                         <div class="input-group-prepend">
                           <div class="input-group-text"><i class="fa fa-user"></i></div>
                         </div>
-                        <input type="text" [ngClass]="{'is-invalid': registerCompany.get('companyUsername').errors && registerCompany.get('companyUsername').touched}" 
-                        class="form-control" formControlName="companyUsername" placeholder="Username" >
-                        <div class="invalid-feedback">Username is required!</div>
-                        </div>
-      
+                        <input id="companyUsername" type="text" [ngClass]="{'is-invalid': registerCompany.get('companyUsername').errors && registerCompany.get('companyUsername').touched}" 
+                        class="form-control" formControlName="companyUsername" placeholder="Username">
+                        <div class="invalid-feedback" *ngIf="registerCompany.get('companyUsername').hasError('required') && registerCompany.get('companyUsername').touched">Username is required!</div>
+                    </div>
                   </div>
                   <div class="form-group col col-md-12 col-lg-6 col-12">
                     <div class="input-group">
@@ -82,6 +81,7 @@
                 <th scope="col" style="width: 10%">Company Owner</th>
                 <th scope="col" style="width: 10%">Contact Number</th>
                 <th scope="col" style="width: 10%">Address</th>
+                <th scope="col" style="width: 10%">Subscription Start</th>
                 <th scope="col" style="width: 10%">Subscription End</th>
               </tr>
             </thead>
@@ -92,7 +92,8 @@
                 <td>{{company.CompanyOwner}}</td>
                 <td>{{company.ContactNumber}}</td>
                 <td>{{company.CompanyAddress}}</td>
-                <td>{{company.Subscription.SubscriptionEnd}}</td>
+                <td>{{company.Subscription?.SubscriptionStart | date}}</td>
+                <td>{{company.Subscription?.SubscriptionEnd | date}}</td>
               </tr>
             </tbody>
         </table>

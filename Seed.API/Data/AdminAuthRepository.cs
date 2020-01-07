@@ -87,10 +87,6 @@ namespace Seed.API.Data
 
         }
 
-        public async Task<IEnumerable<Company>> GetCompanies()
-        {
-            var companies = await _context.Companies.Include(s => s.Subscription).ToListAsync();
-            return companies;
-        }
+      
     }
 }

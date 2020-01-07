@@ -3,9 +3,9 @@
     <div class="col col-12 col-md-4 jumbotron mr-4 bg-primary">
       <h4>Admin Panel</h4><hr>
             <div class="row" >
-                <div class="container btnHead pointerCursor col col-12" (click)="isContentOpen = !isContentOpen" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic" routerLinkActive="active">
+                <div class="container btnHead pointerCursor col col-12" (click)="isContentOpen = !isContentOpen" aria-controls="collapseBasic" routerLinkActive="active">
                    <div class="container mt-4">
-                     <h5><i class="fas fa-user-cog mr-5"></i>{{this.adminauth.decodedToken.family_name}}
+                     <h5><i class="fas fa-user-cog mr-5"></i>{{this.adminAuth.decodedToken.family_name}}
                      <i *ngIf="!isContentOpen" class="fas fa-caret-up ml-5"></i>
                      <i *ngIf="isContentOpen" class="fas fa-caret-down ml-5"></i></h5>
                    </div>

@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { CompanyAuthService } from 'src/app/_services/company-auth.service';
+import { AdminAuthService } from 'src/app/_services/admin-auth.service';
+import { AdminService } from 'src/app/_services/Admin.service';
+import { Company } from 'src/app/_models/company';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-company-setup',
@@ -6,10 +11,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./company-setup.component.css']
 })
 export class CompanySetupComponent implements OnInit {
-
-  constructor() { }
+  companies: Company[];
+  constructor(private adminService: AdminService) { }
 
   ngOnInit() {
+    this.companies = this.adminService.companies;
   }
 
 }

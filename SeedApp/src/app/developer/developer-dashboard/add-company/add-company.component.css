@@ -2,6 +2,20 @@
     background-color: #272b30;
     color: white;
 }
+.tr,th {
+  color: white;
+  font-size: 14px;
+  font-family: sans-serif;
+  margin: auto;
+  padding: auto;
+}
+.tr,td {
+  color: white;
+  font-size: 12px;
+  font-family: sans-serif;
+  margin: auto;
+  padding: auto;
+}
 
 input {
     font-size: 15px;

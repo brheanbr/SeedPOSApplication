@@ -12,6 +12,14 @@ namespace Seed.API.Data
         public DbSet<Subscription> Subscriptions { get; set; }
         // public DbSet<ConnectionStrings> ConnectionStrings { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("server=DESKTOP-DVFRMBL\\SQLEXPRESS;database=SeedDB;Trusted_Connection=true");
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
         //    modelBuilder.Entity<Subscription>()

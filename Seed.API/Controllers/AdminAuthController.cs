@@ -32,7 +32,6 @@ namespace Seed.API.Controllers
             _mapper = mapper;
             _config = config;
             _repo = repo;
-
         }
         [AllowAnonymous]
         [HttpPost("register")]
@@ -93,13 +92,6 @@ namespace Seed.API.Controllers
             return Ok(companyToReturn);
         }
 
-        [HttpGet("companies")]
-        public async Task<IActionResult> GetCompanies()
-        {
-            var companies = await _repo.GetCompanies();
-            var companiesToReturn = _mapper.Map<IEnumerable<CompanyToReturnDto>>(companies);
-            return Ok(_dataContext.Companies);
-        }
 
     }
 }
