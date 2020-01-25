@@ -31,6 +31,7 @@ import { CashierComponent } from './company/dashboard/cashier/cashier.component'
 import { DepartmentsComponent } from './company/dashboard/departments/departments.component';
 import { AdminSetupComponent } from './company/dashboard/admin-setup/admin-setup.component';
 import { CompanyCardComponent } from './developer/developer-dashboard/company-setup/company-card/company-card.component';
+import { CompanyEmployeeComponent } from './developer/developer-dashboard/company-setup/company-employee/company-employee.component';
 
 
 
@@ -58,7 +59,9 @@ export function tokenGetter() {
       CashierComponent,
       DepartmentsComponent,
       AdminSetupComponent,
-      CompanyCardComponent
+      CompanyCardComponent,
+      CompanyEmployeeComponent
+
    ],
    imports: [
       BrowserModule,

@@ -36,7 +36,7 @@ namespace Seed.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-              services.AddDbContextPool<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SeedDBConnection")));
+              services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SeedDBConnection")));
               services.AddDbContext<CompanyDataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
               services.AddAutoMapper(typeof(AdminAuthRepository).Assembly);
               services.AddAutoMapper(typeof(CompanyRepository).Assembly);

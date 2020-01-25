@@ -14,6 +14,7 @@ namespace Seed.API.Data
         Task<bool> IsSubscribed(int Id);
         Task<IEnumerable<Company>> GetCompanies();
         Task<Company> GetCompany(int id);
+        Task<Subscription> GetSubscription(int id);
         Task<IEnumerable<Employee>> GetEmployees();
     }
 }

@@ -1,16 +1,28 @@
 <h2>Company Setup</h2>
-
-<div class="container companySetupPan">
-    <p class="title">Profile:</p>
-    <div class="row">
-        <p>{{companies}}</p>
+<div class="row">
+    <div class="container companySetupPan">
+        <div class="container">
+            <p class="title">Companies:</p>
+        </div>
+        <div class="container">
+            <div class="row" *ngFor="let company of companies">
+                <div class="col col-md-12">
+                    <app-company-card [company]="company" (passEmpValue)="dataChecker($event)"></app-company-card>
+                </div>
+                
+            </div>
+        </div>
     </div>
 </div>
-
-
-
-
-
-{{companies|json}}asdasdsadasdasdas
-
-
+<div class="row mt-2">
+    <div class="container companySetupPan">
+        <div class="container">
+            <p class="title">Employees:</p>
+        </div>
+        <div class="container" *ngFor="let employeelist of employees">
+            <div class="row">
+            <p>{{employeelist.FullName}}</p>
+            </div>
+        </div>
+    </div>
+</div>

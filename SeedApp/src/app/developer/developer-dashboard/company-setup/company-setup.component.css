@@ -4,7 +4,7 @@ h2 {
 }
 .title {
     padding-top: 20px;
-    color: #000000;
+    color: white;
     font-size: 20px;
 }
 input {
@@ -15,7 +15,6 @@ input {
 }
 .companySetupPan {
     padding: auto;
-    background-color: #52585e;
-    height: 200px;
-    color: black;
+    background-color: #272b30;
+    color: white;
 }

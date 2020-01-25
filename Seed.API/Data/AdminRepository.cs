@@ -51,15 +51,27 @@ namespace Seed.API.Data
 
         public async Task<IEnumerable<Employee>> GetEmployees()
         {
-            var employees = await _companyContext.Employees.ToListAsync();
+            // if(con != null){
+            //       _companyContext.connectionString(con);
+            // }
+            var employees = await _companyContext.Employees.ToListAsync(); 
+         
             return employees;
-
+         
         }
-
         public async Task<Company> GetCompany(int id)
         {
-            var company = await _context.Companies.Include(s => s.Subscription).FirstOrDefaultAsync(c => c.Id == id);
+            var company = await _context.Companies.Include(x => x.Subscription).FirstOrDefaultAsync(c => c.Id == id);
+            
             return company;
         }
-    }
+
+        public async Task<Subscription> GetSubscription(int id)
+        {
+            var subscription = await _context.Subscriptions.FirstOrDefaultAsync(c => c.CompanyId == id);
+            
+            return subscription;
+        }
+
+}
 }
