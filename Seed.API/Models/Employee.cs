@@ -1,4 +1,4 @@
-namespace Seed.API.Models.CompanyModels
+namespace Seed.API.Models
 {
     public class Employee
     {

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Seed.API.Migrations
 {
-    public partial class AddenAdminAndCompanyEntity : Migration
+    public partial class InitialEntities : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -44,32 +44,19 @@ namespace Seed.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Subscription",
+                name: "Employees",
                 columns: table => new
                 {
-                    SubscriptionId = table.Column<int>(nullable: false)
+                    EmployeeId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ConnectionString = table.Column<string>(nullable: true),
-                    SubscriptionStart = table.Column<DateTime>(nullable: false),
-                    SubscriptionEnd = table.Column<DateTime>(nullable: false),
-                    CompanyId = table.Column<int>(nullable: false)
+                    FullName = table.Column<string>(nullable: true),
+                    EmployeeType = table.Column<string>(nullable: true),
+                    EmployeeCode = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Subscription", x => x.SubscriptionId);
-                    table.ForeignKey(
-                        name: "FK_Subscription_Companies_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "Companies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_Employees", x => x.EmployeeId);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Subscription_CompanyId",
-                table: "Subscription",
-                column: "CompanyId",
-                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -78,10 +65,10 @@ namespace Seed.API.Migrations
                 name: "Admin");
 
             migrationBuilder.DropTable(
-                name: "Subscription");
+                name: "Companies");
 
             migrationBuilder.DropTable(
-                name: "Companies");
+                name: "Employees");
         }
     }
 }

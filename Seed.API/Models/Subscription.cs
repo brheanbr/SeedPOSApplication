@@ -8,7 +8,6 @@ namespace Seed.API.Models
         public string ConnectionString { get; set; }
         public DateTime SubscriptionStart { get; set; }
         public DateTime SubscriptionEnd { get; set; }
-        public Company Company { get; set; }
         public int CompanyId { get; set; }
     }
 }

@@ -9,17 +9,10 @@ namespace Seed.API.Data
         
         public DbSet<Admin> Admin{get; set;}
         public DbSet<Company> Companies{ get; set; }
-        public DbSet<Subscription> Subscriptions { get; set; }
-        // public DbSet<ConnectionStrings> ConnectionStrings { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Product> Products { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("server=DESKTOP-DVFRMBL\\SQLEXPRESS;database=SeedDB;Trusted_Connection=true");
-            }
-        }
-
+     
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
         //    modelBuilder.Entity<Subscription>()

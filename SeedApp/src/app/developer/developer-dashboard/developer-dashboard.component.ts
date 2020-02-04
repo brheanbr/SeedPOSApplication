@@ -19,9 +19,9 @@ export class DeveloperDashboardComponent implements OnInit {
               private alertify: AlertifyService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.route.data.subscribe(data => {
-      this.adminService.companies = data.companies;
-    });
+    // this.route.data.subscribe(data => {
+    //   this.adminService.companies = data.company;
+    // });
   }
   checkerAddCompany() {
     if (this.addCompanyOpen === true) {

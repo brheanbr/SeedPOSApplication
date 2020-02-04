@@ -25,6 +25,7 @@ constructor(private http: HttpClient, private router: Router) { }
         if (admin) {
           localStorage.setItem('token', admin.token);
           this.decodedToken = this.jwtHelper.decodeToken(admin.token);
+          console.log(this.decodedToken);
         }
       })
     );

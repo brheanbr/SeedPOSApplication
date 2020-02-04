@@ -18,26 +18,24 @@ namespace Seed.API.Controllers
         private readonly DataContext _context;
         private readonly IAdminRepository _repo;
         private readonly IMapper _mapper;
-        private readonly CompanyDataContext _companyContext;
-        public AdminController(IAdminRepository repo, DataContext context, IMapper mapper, CompanyDataContext companyContext)
+        public AdminController(IAdminRepository repo, DataContext context, IMapper mapper)
         {
-            _companyContext = companyContext;
             _mapper = mapper;
             _repo = repo;
             _context = context;
 
         }
 
-        [HttpPost("subscribe")]
-        public async Task<IActionResult> Subscribe(SubsToCreate substoCreateDto)
-        {
-            if (await _repo.IsSubscribed(substoCreateDto.CompanyId))
-                return BadRequest("Already Subscribed");
-            var subsToCreate = _mapper.Map<Subscription>(substoCreateDto);
-            subsToCreate.SubscriptionStart = DateTime.Today;
-            await _repo.Subscribe(subsToCreate);
-            return NoContent();
-        }
+        // [HttpPost("subscribe")]
+        // public async Task<IActionResult> Subscribe(SubsToCreate substoCreateDto)
+        // {
+        //     if (await _repo.IsSubscribed(substoCreateDto.CompanyId))
+        //         return BadRequest("Already Subscribed");
+        //     var subsToCreate = _mapper.Map<Subscription>(substoCreateDto);
+        //     subsToCreate.SubscriptionStart = DateTime.Today;
+        //     await _repo.Subscribe(subsToCreate);
+        //     return NoContent();
+        // }
 
         [HttpGet("companies")]
         public async Task<IActionResult> GetCompanies()
@@ -54,13 +52,13 @@ namespace Seed.API.Controllers
             return Ok(company);
         }
 
-        [HttpGet("employees")]
-        public async Task<IActionResult> GetEmployees(int CompanyId)
-        {
-            //var company = await _repo.GetSubscription(CompanyId);
-            var employees = await _repo.GetEmployees();
-            return Ok(employees);
-        }
+        // [HttpGet("employees")]
+        // public async Task<IActionResult> GetEmployees(int CompanyId)
+        // {
+        //     //var company = await _repo.GetSubscription(CompanyId);
+        //     var employees = await _repo.GetEmployees();
+        //     return Ok(employees);
+        // }
 
 
     }

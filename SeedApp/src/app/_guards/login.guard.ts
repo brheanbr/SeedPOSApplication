@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { CanActivate, Router, CanActivateChild } from '@angular/router';
 import { AdminAuthService } from '../_services/admin-auth.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { DeveloperLoginComponent } from '../developer/developer-login/developer-login.component';
@@ -16,10 +16,11 @@ export class LoginGuard implements CanActivate {
 
   canActivate(): boolean {
     if (this.adminAuth.loggedIn()) {
-     this.alertify.error('Already logged in!');
-     this.router.navigate(['/developer-dashboard']);
-     return false;
+      this.alertify.message('Already Signed In');
+      this.router.navigate(['developer/developer-dashboard']);
+      return true;
     }
+    this.alertify.message('Please Sign In');
     return true;
   }
 }

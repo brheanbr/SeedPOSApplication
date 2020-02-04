@@ -13,6 +13,7 @@ export class AppComponent {
 
   constructor(private adminAuth: AdminAuthService, private companyAuth: CompanyAuthService) {}
 
+  // tslint:disable-next-line: use-lifecycle-interface
   ngOnInit() {
     const token = localStorage.getItem('token');
     const companytoken = localStorage.getItem('companytoken');

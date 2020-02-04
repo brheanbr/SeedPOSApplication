@@ -37,7 +37,6 @@ namespace Seed.API
         public void ConfigureServices(IServiceCollection services)
         {
               services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SeedDBConnection")));
-              services.AddDbContext<CompanyDataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
               services.AddAutoMapper(typeof(AdminAuthRepository).Assembly);
               services.AddAutoMapper(typeof(CompanyRepository).Assembly);
               services.AddAutoMapper(typeof(AdminRepository).Assembly);

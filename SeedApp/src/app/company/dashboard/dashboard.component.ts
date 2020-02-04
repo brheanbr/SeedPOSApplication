@@ -9,7 +9,7 @@ import { AlertifyService } from 'src/app/_services/alertify.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  company: Company;
+  company: any;
   constructor(private route: ActivatedRoute, private alertify: AlertifyService, private router: Router) { }
 
   ngOnInit() {

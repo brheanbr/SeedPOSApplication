@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AdminAuthService } from 'src/app/_services/admin-auth.service';
 import { Router } from '@angular/router';
 import { AlertifyService } from 'src/app/_services/alertify.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-developer-login',
@@ -10,13 +11,12 @@ import { AlertifyService } from 'src/app/_services/alertify.service';
 })
 export class DeveloperLoginComponent implements OnInit {
   adminModel: any = {};
+  jtwHelper = new JwtHelperService();
+  companyAuth: any;
 
   constructor(private adminAuth: AdminAuthService, private router: Router, private alertify: AlertifyService) { }
 
   ngOnInit() {
-    if (this.adminAuth.loggedIn()) {
-      this.router.navigate(['developer-dashboard']);
-    }
   }
 
   login() {
@@ -26,7 +26,7 @@ export class DeveloperLoginComponent implements OnInit {
       }, error => {
         this.alertify.error(error);
       }, () => {
-        this.router.navigate(['developer-dashboard']);
+        this.router.navigate(['/developer/developer-dashboard']);
       }
     );
   }

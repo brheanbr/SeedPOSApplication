@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Seed.API.Models;
-using Seed.API.Models.CompanyModels;
 
 namespace Seed.API.Data
 {
@@ -10,11 +9,7 @@ namespace Seed.API.Data
         void Add<T>(T entity) where T: class;
         void Delete<T>(T entity) where T: class;
         Task<bool> SaveAll();
-        Task<Subscription> Subscribe(Subscription subscription);
-        Task<bool> IsSubscribed(int Id);
         Task<IEnumerable<Company>> GetCompanies();
         Task<Company> GetCompany(int id);
-        Task<Subscription> GetSubscription(int id);
-        Task<IEnumerable<Employee>> GetEmployees();
     }
 }

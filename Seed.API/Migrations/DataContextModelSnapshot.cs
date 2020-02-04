@@ -79,40 +79,49 @@ namespace Seed.API.Migrations
                     b.ToTable("Companies");
                 });
 
-            modelBuilder.Entity("Seed.API.Models.Subscription", b =>
+            modelBuilder.Entity("Seed.API.Models.Employee", b =>
                 {
-                    b.Property<int>("SubscriptionId")
+                    b.Property<int>("EmployeeId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConnectionString")
+                    b.Property<string>("EmployeeCode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("SubscriptionEnd")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("EmployeeType")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("SubscriptionStart")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("SubscriptionId");
+                    b.HasKey("EmployeeId");
 
-                    b.HasIndex("CompanyId")
-                        .IsUnique();
-
-                    b.ToTable("Subscriptions");
+                    b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("Seed.API.Models.Subscription", b =>
+            modelBuilder.Entity("Seed.API.Models.Product", b =>
                 {
-                    b.HasOne("Seed.API.Models.Company", "Company")
-                        .WithOne("Subscription")
-                        .HasForeignKey("Seed.API.Models.Subscription", "CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("ProductCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ProductName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProductType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Products");
                 });
 #pragma warning restore 612, 618
         }

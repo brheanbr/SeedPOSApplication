@@ -7,5 +7,4 @@ export interface Company {
     CompanyOwner: string;
     ContactNumber: string;
     CompanyAddress: string;
-    Subscription: Subscription;
 }

@@ -15,11 +15,9 @@ namespace Seed.API.Controllers
     {
         private readonly IPOSRepository _repo;
         private readonly IMapper _mapper;
-        private readonly CompanyDataContext _context;
 
-        public POSController(IPOSRepository repo, IMapper mapper, CompanyDataContext context)
+        public POSController(IPOSRepository repo, IMapper mapper)
         {
-            _context = context;
             _mapper = mapper;
             _repo = repo;
         }
