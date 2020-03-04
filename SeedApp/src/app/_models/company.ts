@@ -1,7 +1,6 @@
-import { Subscription } from './Subscription';
 
 export interface Company {
-    Id: number;
+    Id?: number;
     CompanyUsername: string;
     CompanyName: string;
     CompanyOwner: string;

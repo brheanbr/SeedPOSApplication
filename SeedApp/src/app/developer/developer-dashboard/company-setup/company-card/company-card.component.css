@@ -2,9 +2,14 @@
     background-color: #272b30;
     border-radius: 5px;
     border: 1px solid #272b30;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.card:hover {
+   border: 2px solid lawngreen;
+   transition: all 0.3s ease-in-out;
 }
 i {
-    margin: 20px auto 5px;
     color: lawngreen;
  }
  h4,h6,p {

@@ -1,10 +1,12 @@
 import { Component, OnInit, Input, TemplateRef, Output, EventEmitter } from '@angular/core';
 import { Company } from 'src/app/_models/company';
 import { Subscription } from 'src/app/_models/Subscription';
-import { AdminService } from 'src/app/_services/Admin.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { AlertifyService } from 'src/app/_services/alertify.service';
-import { Employees } from 'src/app/_models/Employees';
+import * as fromStore from '../../../_store';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-company-card',
@@ -12,21 +14,42 @@ import { Employees } from 'src/app/_models/Employees';
   styleUrls: ['./company-card.component.css']
 })
 export class CompanyCardComponent implements OnInit {
-  @Input() company: Company;
-  @Output() passEmpValue = new EventEmitter();
+  @Input() company$: Observable<Company>;
   subs: Subscription;
-  constructor(public adminService: AdminService, private modalService: BsModalService, public alertify: AlertifyService) { }
+  modalRef: BsModalRef;
+  constructor(private store: Store<fromStore.CompanyAction>, private modalService: BsModalService,
+              public alertify: AlertifyService, private router: Router) { }
 
   ngOnInit() {
-
   }
 
-  getEmployee() {
-    this.adminService.getEmployees().subscribe(data => {
-      this.passEmpValue.emit(data);
-      this.alertify.message('Succesfully Retrieved!');
-    }, error => {
-      this.alertify.error('Problem Retrieving data!');
-    });
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+  }
+
+  confirm(id): void {
+    this.deleteCompany(id);
+    this.modalRef.hide();
+  }
+
+  decline(): void {
+    this.modalRef.hide();
+  }
+
+  // getEmployee() {
+  //   this.adminService.getEmployees().subscribe(data => {
+  //     this.passEmpValue.emit(data);
+  //     this.alertify.message('Succesfully Retrieved!');
+  //   }, error => {
+  //     this.alertify.error('Problem Retrieving data!');
+  //   });
+  // }
+
+  deleteCompany(id) {
+    this.store.dispatch(new fromStore.DeleteCompany(id));
+  }
+  getCompany(id) {
+    // this.store.dispatch(new fromStore.LoadCompany(id));
+    // this.router.navigate(['/developer/company', id]);
   }
 }

@@ -49,7 +49,22 @@ namespace Seed.API.Controllers
         public async Task<IActionResult> GetCompany(int id)
         {
             var company = await _repo.GetCompany(id);
-            return Ok(company);
+            var companiesToReturn = _mapper.Map<CompanyToReturnDto>(company);
+            return Ok(companiesToReturn);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCompany(int id)
+        {
+            var companyFromRepo = await _repo.GetCompany(id);
+            if(companyFromRepo != null)
+            {
+                _repo.Delete(companyFromRepo);
+            }
+            if(await _repo.SaveAll())
+                return Ok();
+            return BadRequest("Failed to delete company");
+            
         }
 
         // [HttpGet("employees")]

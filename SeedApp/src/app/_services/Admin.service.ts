@@ -10,14 +10,23 @@ import { Employees } from '../_models/Employees';
   providedIn: 'root'
 })
 export class AdminService {
-companies: any[];
+companies: Company[];
 employees: any;
 constructor(private http: HttpClient) { }
 
 getCompanies() {
-  return this.http.get(environment.baseUrl + 'admin/companies');
+  return this.http.get<Company[]>(environment.baseUrl + 'admin/companies');
+}
+getCompany(id: number) {
+  return this.http.get<Company>(environment.baseUrl + 'admin/company/' + id);
 }
 getEmployees() {
   return this.http.get(environment.baseUrl + 'admin/employees');
+}
+deleteCompany(id: number) {
+  return this.http.delete(environment.baseUrl + 'admin/' + id);
+}
+companyRegister(company: Company) {
+  return this.http.post(environment.baseUrl + 'adminauth/register-company', company);
 }
 }

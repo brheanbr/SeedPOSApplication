@@ -5,6 +5,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwtModule } from '@auth0/angular-jwt';
 import { HttpClientModule } from '@angular/common/http';
 
+import { reducers, CustomSerializer } from './_store';
+import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
+
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -24,6 +27,11 @@ import { AdminSetupComponent } from './company/dashboard/admin-setup/admin-setup
 import { SharedModule } from './_shared/shared.module';
 import { DeveloperDashboardResolver } from './_resolver/developer-dashboard.resolver';
 import { StoreModule, MetaReducer } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { environment } from 'src/environments/environment';
+
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
 
 
 
@@ -66,11 +74,14 @@ export const metaReducers: MetaReducer<any>[] = [];
             blacklistedRoutes: ['localhost:5000/adminauth', 'localhost:5000/companyauth']
          }
       }),
-      StoreModule.forRoot({}, { metaReducers }),
+      StoreModule.forRoot(reducers, { metaReducers }),
+      StoreRouterConnectingModule.forRoot({serializer: CustomSerializer}),
+      EffectsModule.forRoot([]),
+      StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
    ],
    providers: [
       ErrorInterceptorProvider,
-      CompanyResolver
+      CompanyResolver,
       ],
    bootstrap: [
       AppComponent

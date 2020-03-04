@@ -14,7 +14,10 @@ import { SharedModule } from '../_shared/shared.module';
 import { DeveloperDashboardResolver } from '../_resolver/developer-dashboard.resolver';
 import { DeveloperRoutes } from './developer.routing';
 import { StoreModule } from '@ngrx/store';
-import { reducers } from './_store/reducers';
+import { effects, reducers  } from './_store';
+import { EffectsModule } from '@ngrx/effects';
+import { ErrorInterceptorProvider } from '../_services/error.interceptor';
+import { CompanyDetailsComponent } from './developer-dashboard/company-setup/company-details/company-details.component';
 
 
 export function tokenGetter() {
@@ -36,14 +39,17 @@ export function tokenGetter() {
     CompanyCardComponent,
     CompanyEmployeeComponent,
     AddMenuComponent,
-    DeveloperLoginComponent
+    DeveloperLoginComponent,
+    CompanyDetailsComponent
   ],
   imports: [
     SharedModule,
     DeveloperRoutes,
-    StoreModule.forFeature('products', reducers)
+    StoreModule.forFeature('companies', reducers),
+    EffectsModule.forFeature(effects)
   ],
   providers: [
+    ErrorInterceptorProvider,
     DeveloperDashboardResolver
   ]
 })

@@ -81,22 +81,21 @@
                 <th scope="col" style="width: 10%">Company Owner</th>
                 <th scope="col" style="width: 10%">Contact Number</th>
                 <th scope="col" style="width: 10%">Address</th>
-                <th scope="col" style="width: 10%">Subscription Start</th>
-                <th scope="col" style="width: 10%">Subscription End</th>
               </tr>
             </thead>
-            <tbody *ngFor="let company of companies">
-              <tr>
+            <tbody>
+              <tr *ngFor="let company of (companies$| async)">
                 <td>{{company.Id}}</td>
                 <td>{{company.CompanyName}}</td>
                 <td>{{company.CompanyOwner}}</td>
                 <td>{{company.ContactNumber}}</td>
                 <td>{{company.CompanyAddress}}</td>
-                <td>{{company.Subscription?.SubscriptionStart | date}}</td>
-                <td>{{company.Subscription?.SubscriptionEnd | date}}</td>
+                <td><button type="button" (click)="load(company.Id)">Select</button></td>
               </tr>
             </tbody>
         </table>
     </div> 
 </div>
 </div>
+
+{{company$|async}}
