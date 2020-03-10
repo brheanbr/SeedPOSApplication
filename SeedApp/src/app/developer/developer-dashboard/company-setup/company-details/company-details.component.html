@@ -3,7 +3,7 @@
 
   <p>{{selectedCompany$.CompanyName | async}}1</p>
   <p>{{selectedCompany$.Id | async}}2</p>
-  <p>{{selectedCompany$.Id | async | json}}3</p>
+  <p>{{selectedCompany$ | async | json}}3</p>
   <p>{{(selectedCompany$.CompanyName | async)}}j</p>
   <p>{{selectedCompany$.Id | async}}</p>
   </div>
