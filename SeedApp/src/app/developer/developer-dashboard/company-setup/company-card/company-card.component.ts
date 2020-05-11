@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./company-card.component.css']
 })
 export class CompanyCardComponent implements OnInit {
-  @Input() company$: Observable<Company>;
+  @Input() company$;
   subs: Subscription;
   modalRef: BsModalRef;
   constructor(private store: Store<fromStore.CompanyAction>, private modalService: BsModalService,
@@ -49,7 +49,6 @@ export class CompanyCardComponent implements OnInit {
     this.store.dispatch(new fromStore.DeleteCompany(id));
   }
   getCompany(id) {
-    // this.store.dispatch(new fromStore.LoadCompany(id));
-    // this.router.navigate(['/developer/company', id]);
+    this.router.navigate(['/developer/company', id]);
   }
 }

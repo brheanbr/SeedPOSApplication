@@ -1,9 +1,11 @@
+import { Product } from './Product';
 
 export interface Company {
-    Id?: number;
+    CompanyId?: number;
     CompanyUsername: string;
     CompanyName: string;
     CompanyOwner: string;
     ContactNumber: string;
     CompanyAddress: string;
+    Product: Product[];
 }

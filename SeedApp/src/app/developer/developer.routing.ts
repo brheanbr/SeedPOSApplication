@@ -6,6 +6,10 @@ import { LoginGuard } from '../_guards/login.guard';
 import { DeveloperLoginComponent } from './developer-login/developer-login.component';
 import { AddMenuComponent } from './add-menu/add-menu.component';
 import { CompanyDetailsComponent } from './developer-dashboard/company-setup/company-details/company-details.component';
+import { CompanyDetailsResolver } from './_resolver/company-details.resolver';
+import { resolve } from 'url';
+import { CompanyResolver } from '../_resolver/company.resolver';
+import { AdminCompanyGuard } from '../_guards/admin-company.guard';
 
 export const routes: Routes = [
     {

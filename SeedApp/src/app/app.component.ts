@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AdminAuthService } from './_services/admin-auth.service';
 import { CompanyAuthService } from './_services/company-auth.service';
+import { Store } from '@ngrx/store';
+import * as fromStore from './developer/_store/';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +13,7 @@ import { CompanyAuthService } from './_services/company-auth.service';
 export class AppComponent {
   jtwHelper = new JwtHelperService();
 
-  constructor(private adminAuth: AdminAuthService, private companyAuth: CompanyAuthService) {}
+  constructor(private adminAuth: AdminAuthService, private companyAuth: CompanyAuthService, private store: Store<fromStore.ProductState>) {}
 
   // tslint:disable-next-line: use-lifecycle-interface
   ngOnInit() {

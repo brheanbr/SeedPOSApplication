@@ -85,17 +85,14 @@
             </thead>
             <tbody>
               <tr *ngFor="let company of (companies$| async)">
-                <td>{{company.Id}}</td>
+                <td>{{company.CompanyId}}</td>
                 <td>{{company.CompanyName}}</td>
                 <td>{{company.CompanyOwner}}</td>
                 <td>{{company.ContactNumber}}</td>
                 <td>{{company.CompanyAddress}}</td>
-                <td><button type="button" (click)="load(company.Id)">Select</button></td>
               </tr>
             </tbody>
         </table>
     </div> 
 </div>
 </div>
-
-{{company$|async}}

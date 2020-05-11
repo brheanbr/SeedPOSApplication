@@ -28,7 +28,7 @@ namespace Seed.API.Data
 
         public async Task<Company> GetCompany(int id)
         {
-            var company = await _context.Companies.FirstOrDefaultAsync(c => c.Id == id);
+            var company = await _context.Companies.FirstOrDefaultAsync(c => c.CompanyId == id);
             return company;
         }
 

@@ -27,6 +27,7 @@
     "@ngrx/router-store": "^8.6.0",
     "@ngrx/store": "^8.6.0",
     "@ngrx/store-devtools": "^8.6.0",
+    "admin-lte": "^3.0.4",
     "alertifyjs": "^1.13.1",
     "autoprefixer": "^9.7.3",
     "bootstrap": "^4.4.1",

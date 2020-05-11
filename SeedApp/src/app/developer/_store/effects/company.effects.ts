@@ -10,6 +10,7 @@ import { mergeMap, map, catchError } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
 import { Company } from 'src/app/_models/company';
 import { Action } from '@ngrx/store';
+import { Product } from 'src/app/_models';
 
 @Injectable()
 export class CompanyEffects {
@@ -73,4 +74,20 @@ export class CompanyEffects {
             )
         )
     );
+
+    // @Effect()
+    // addCompanyProduct$ = this.actions$
+    // .pipe(
+    //     ofType<companyActions.AddCompanyProduct>(companyActions.ADD_COMPANY_PRODUCT),
+    //     map((action: companyActions.AddCompanyProduct) => action.payload),
+    //     mergeMap(
+    //         (product: Product) => this.adminService.addCompanyProduct(product)
+    //         .pipe(
+    //             map((newProduct: Product) =>
+    //                 new companyActions.AddCompanyProductSuccess(newProduct)
+    //             ),
+    //             catchError(error => of(new companyActions.AddCompanyProductFail(error)))
+    //         )
+    //     ),
+    // );
 }

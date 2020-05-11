@@ -1,64 +1,53 @@
-import { createSelector, props, createFeatureSelector } from '@ngrx/store';
-
-import * as fromRoot from '../../../_store';
+import { createSelector, createFeatureSelector } from '@ngrx/store';
 import * as fromFeature from '../reducer';
 import * as fromCompany from '../reducer/company.reducer';
-import { Dictionary } from '@ngrx/entity';
-import { Company } from 'src/app/_models/company';
-import { create } from 'domain';
 
 
-// export const getCompanyEntities = createSelector(fromFeature.getCompanyFeatureState, (state: fromCompany.CompanyState) => state.entities);
 
-// export const getCompanyEntities = createSelector(
-//     getCompanyState,
-//     fromCompany.getCompanyEntities,
-//     (state: fromCompany.CompanyState) => state.entities[getCompany.]
-// );
+const {
+    // select the array of user ids
+    selectIds,
 
-export const getCompanyFeatureState = createSelector(
+    // select the dictionary of user entities
+    selectEntities,
+
+    // select the array of users
+    selectAll,
+
+    // select the total user count
+    selectTotal,
+  } = fromCompany.companyAdapter.getSelectors();
+
+
+
+// select the array of user ids
+const selectUserIds = selectIds;
+
+// select the dictionary of user entities
+const selectUserEntities = selectEntities;
+
+// select the array of users
+const selectAllCompany = selectAll;
+
+// select the total user count
+const selectUserTotal = selectTotal;
+
+
+
+export const getCompanyState = createSelector(
     fromFeature.getCompanyFeatureState,
     state => state.company
 );
 
 export const getCompanies = createSelector(
-    getCompanyFeatureState,
-    fromFeature.selectAllCompany
+    getCompanyState,
+    selectAllCompany
 );
 export const getCompany = createSelector(
-    getCompanyFeatureState,
+    getCompanyState,
     state => state.selectedCompany
 );
-
-
-// export const getCompaniesLoading = createSelector(
-//     fromFeature.getCompanyFeatureState,
-//     (state: fromFeature.ProductState) => fromCompany.getCompanyLoading
-// );
-
-// export const getCompaniesLoaded = createSelector(
-//     fromFeature.getCompanyFeatureState,
-//     (state: fromFeature.ProductState) => fromCompany.getCompanyLoaded
-// );
-
-
-// export const getCompanyId = selectQueryParam('companyId') ;
-
-// export const getCompanyEntity = createSelector(fromCompany.getCompanyEntities, entity => entity.id);
-
-// export const getCompanyById = () => {
-//     return createSelector(
-//         getCompanyEntity,
-//         entity => entity.Id
-//     );
-// };
-// export const getCompany = createSelector(
-//     fromFeature.getCompanyFeatureState,
-//     getCompanyState,
-//     state => state.company.entities[]
-// );
-
-// export const getCompany = createSelector(
-//     getCompanyState,
-//     getCompanyId
-// );
+export const getCompanyError = createSelector(
+    getCompanyState,
+    state => state.error
+);

@@ -1,11 +1,13 @@
-
+.cont-panel {
+    margin-top: 100px;
+}
 .pointerCursor {
     cursor: pointer;
     color: white;
 }
 h4 {
     text-align: center;
-    color: lawngreen;
+    color: lawnGreen;
 }
 .jumbotron {
     margin-top: 30px ;

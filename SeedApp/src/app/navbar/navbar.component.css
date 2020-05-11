@@ -1,3 +1,12 @@
 a:hover {
     cursor: pointer;
 }
+.dropdown-toggle a:hover {
+    border-bottom:2px solid #00a65a;
+    transition: all 100ms ease-in-out;
+    color: #00a65a;
+  }
+
+  .navbar {
+    height: 80px;
+  }

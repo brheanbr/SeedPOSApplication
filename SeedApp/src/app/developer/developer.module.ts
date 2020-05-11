@@ -10,6 +10,7 @@ import { AddMenuComponent } from './add-menu/add-menu.component';
 
 import { SharedModule } from '../_shared/shared.module';
 
+import { AlertModule } from 'ngx-bootstrap/alert';
 
 import { DeveloperDashboardResolver } from '../_resolver/developer-dashboard.resolver';
 import { DeveloperRoutes } from './developer.routing';
@@ -18,6 +19,8 @@ import { effects, reducers  } from './_store';
 import { EffectsModule } from '@ngrx/effects';
 import { ErrorInterceptorProvider } from '../_services/error.interceptor';
 import { CompanyDetailsComponent } from './developer-dashboard/company-setup/company-details/company-details.component';
+import { CompanyDetailsResolver } from './_resolver/company-details.resolver';
+import { FilterPipe } from '../_shared/_pipes/filter.pipe';
 
 
 export function tokenGetter() {
@@ -40,17 +43,20 @@ export function tokenGetter() {
     CompanyEmployeeComponent,
     AddMenuComponent,
     DeveloperLoginComponent,
-    CompanyDetailsComponent
+    CompanyDetailsComponent,
+    FilterPipe
   ],
   imports: [
     SharedModule,
+    AlertModule.forRoot(),
     DeveloperRoutes,
     StoreModule.forFeature('companies', reducers),
-    EffectsModule.forFeature(effects)
+    EffectsModule.forFeature(effects),
   ],
   providers: [
     ErrorInterceptorProvider,
-    DeveloperDashboardResolver
+    DeveloperDashboardResolver,
+    CompanyDetailsResolver
   ]
 })
 export class DeveloperModule { }

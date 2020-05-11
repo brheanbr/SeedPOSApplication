@@ -1,15 +1,13 @@
 using System;
 
-namespace Seed.API.Models
+namespace Seed.API.Dtos
 {
-    public class Product
+    public class ProductToCreateDto
     {
-        public int Id { get; set; }
         public string ProductName { get; set; }
         public string ProductType { get; set; }
         public double Price { get; set; }
         public DateTime ProductCreated { get; set; }
-        public Company Company { get; set; }
         public int CompanyId { get; set; }
     }
 }

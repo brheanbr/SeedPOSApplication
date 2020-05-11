@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Company } from 'src/app/_models/company';
+import { Company, Product } from 'src/app/_models';
 
 export const LOAD_COMPANIES = '[Company] Load Companies';
 export const LOAD_COMPANIES_FAIL = '[Company] Load Companies Fail';
@@ -17,6 +17,7 @@ export const DELETE_COMPANY = '[Company] Delete Company';
 export const DELETE_COMPANY_FAIL = '[Company] Delete Company Fail';
 export const DELETE_COMPANY_SUCCESS = '[Company] Delete Company Success';
 
+// Company
 export class LoadCompanies implements Action {
     readonly type = LOAD_COMPANIES;
 }
@@ -85,6 +86,7 @@ export class DeleteCompanyFail implements Action {
 
     constructor(public payload: any) {}
 }
+
 
 export type CompanyAction =
 | LoadCompanies

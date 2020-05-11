@@ -13,6 +13,9 @@ namespace Seed.API.Helpers
             CreateMap<Company, CompanyToReturnDto>();
             CreateMap<Subscription, SubsToReturnDto>();
             CreateMap<SubsToCreate, Subscription>();
+            CreateMap<Product, ProductToReturnDto>();
+            CreateMap<ProductToCreateDto, Product>();
+            CreateMap<ProductToEdit, Product>();
         }
     }
 }

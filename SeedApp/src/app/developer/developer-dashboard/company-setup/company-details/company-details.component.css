@@ -1,0 +1,181 @@
+.cont-panel {
+    margin-top: 81px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.card {
+    height: auto;
+    box-shadow: 0px 7px 30px 2px rgba(0, 0, 0, 0.18);
+    position: relative;
+    padding: 0px;
+    overflow: hidden;
+}
+.card-body {
+    padding: 0;
+    height: 100px;
+    overflow: hidden;
+}
+.card-body:hover .widget-img {
+    margin: -100px 0px 0px 320px;
+    transition-duration: 500ms;
+    transition-timing-function: ease-out;
+    opacity: 1;
+}
+.card-body:hover {
+    cursor: pointer;
+}
+.card-footer{
+    padding: 0px;
+    color: white;
+    z-index: 1;
+}
+.footer-img{
+    width: 20px;
+    height: 20px;
+    opacity: 0.8;
+}
+.card-footer:hover .footer-img:hover, .card-footer{
+    opacity: 1;
+    cursor: pointer;
+}
+.widget-count {
+    color: white;
+    text-align: center;
+    margin-top: 4px;
+    font-style: bold;
+}
+.widget-title {
+    color: white;
+    text-align: center;
+}
+.widget-bg {
+    position: absolute;
+    left: -100px;
+    top: -10px;
+    opacity: 0.5;
+}
+.widget-img {
+    text-align: center;
+    width: 90px;
+    height: 90px;
+    margin: -100px 0px 0px 350px;
+    transition-duration: 500ms;
+    transition-timing-function: ease-out;
+    opacity: 0.1;
+}
+.animate {
+    transition: all 0.3s ease-in-out;
+}
+.product-clr {
+    background-color: #00a65a;
+    border: 0.5px solid #00a65a;
+}
+.product-footer-clr {
+    background-color: #009551;
+}
+.employee-clr {
+    background-color: #dd4b39;
+    border: 0.5px solid #dd4b39;
+}
+.employee-footer-clr {
+    background-color: #c64333;
+}
+
+/* Tabs */
+.employee-box, .product-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 16px;
+    padding: 16px;
+    border-radius: 8px;
+  }
+  
+.employee-box {
+height: auto;
+width: auto;
+}
+
+.product-box {
+height: auto;
+width: auto;
+}
+.tab-border {
+border: 0.5px solid #17a2b8;
+box-shadow: 0px 7px 30px 2px rgba(0, 0, 0, 0.18);
+}
+
+/* Input Fields */
+.one-form-field {
+    width: 250px;
+}
+.two-form-field {
+width: 150px;
+}
+.addEmployeeContainer {
+    margin-top: -100px;
+    padding: 0px;
+}
+
+/* Main Panel */
+.card-main-header {
+    width: 90%;
+    height: 150px;
+    box-shadow: 0px 7px 30px 2px rgba(0, 0, 0, 0.18);
+    position: relative;
+    margin-bottom: -130px;
+    background-color: #952cae;
+    border: 0.5px solid #952cae;
+    z-index: 1;
+    color: white;
+    transition-duration: 500ms;
+}
+.header-img {
+    height: 20px;
+    width: 20px;
+}
+.card-main-body {
+    min-height: 640px;
+    box-shadow: 0px 7px 30px 2px rgba(0, 0, 0, 0.18);;
+    border: 0.5px solid #B39DDB;
+    border-radius: 7px;
+    background-color: #EDE7F6;
+    padding-bottom: 40px ;
+}
+.card-main-body .tab-cont {
+    margin-top: 115px;
+}
+.ad {
+    margin-top: 220px;
+}
+.main-pan:hover .card-main-header{
+    margin-bottom: -90px;
+    transition-duration: 500ms;
+    transition-timing-function: ease-out;
+}
+
+table {
+    width: 100%;
+    color: black;
+    font-style: bold;
+    text-align: center;
+    box-shadow: none;
+}
+table tr:hover {
+    background-color: rgb(231, 231, 231);
+    cursor: pointer;
+}
+.tbl-cont{
+    padding: 20px 20px;
+    
+}
+.mat-header-cell {
+    text-align: center;
+    font-style: bold;
+    color: black;
+    font-size: 15px;
+}
+.table-img-action {
+    height: 20px;
+    width: 20px;
+}

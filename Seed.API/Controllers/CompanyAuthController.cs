@@ -37,7 +37,7 @@ namespace Seed.API.Controllers
                     return BadRequest("Wrong username or passwords!");
 
                 var claims = new[]{
-                    new Claim(ClaimTypes.NameIdentifier, companyFromRepo.Id.ToString()),
+                    new Claim(ClaimTypes.NameIdentifier, companyFromRepo.CompanyId.ToString()),
                     new Claim(ClaimTypes.Surname, companyFromRepo.CompanyName),
                     new Claim(ClaimTypes.Name, companyFromRepo.CompanyUsername)
                 };

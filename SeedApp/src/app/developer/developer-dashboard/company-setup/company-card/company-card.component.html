@@ -1,14 +1,14 @@
 <div class="card mb-3 text-center">
-    <div class="card-body">
+    <div class="card-body bg-secondary" (click)="getCompany(company$.CompanyId)">
       <h5 class="card-title">{{company$.CompanyName}}</h5>
       <p class="card-text">{{company$.CompanyAddress}}</p>
       <p class="card-text">Owned by: {{company$.CompanyOwner}}</p>
       <p class="card-text">Tel/Contact #: {{company$.ContactNumber}}</p>
     </div>
     <div class="row mb-3">
-      <div class="container">
-        <button type="button" class="btn btn-success" [routerLink]="['/developer/company',company$.Id]"><i class="fa fa-folder-open mr-2"></i>View</button>
-        <button type="button" class="btn btn-danger" (click)="openModal(confirmationModal)"><i class="fa fa-trash mr-2"></i>Delete</button>
+      <div class="container mt-3">
+        <button type="button" class="btn btn-success mr-2" (click)="getCompany(company$.CompanyId)"><i class="fa fa-folder-open"></i>View</button>
+        <button type="button" class="btn btn-danger" (click)="openModal(confirmationModal)"><i class="fa fa-trash"></i>Delete</button>
       </div>
     </div>
 </div>
@@ -16,7 +16,7 @@
 <ng-template #confirmationModal>
   <div class="modal-body text-center">
   <p>Do you want to delete {{company$.CompanyName}}?</p>
-    <button type="button" class="btn btn-danger" (click)="confirm(company$.Id)" >Yes</button>
+    <button type="button" class="btn btn-danger" (click)="confirm(company$.CompanyId)" >Yes</button>
     <button type="button" class="btn btn-primary" (click)="decline()" >No</button>
   </div>
 </ng-template>
