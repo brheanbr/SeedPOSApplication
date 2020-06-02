@@ -5,8 +5,8 @@ import { HomeComponent } from './home/home.component';
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent},
     { path: 'home', component: HomeComponent},
-    { path: 'developer', loadChildren: './developer/developer.module#DeveloperModule'},
-    { path: 'company', loadChildren: './company/company.module#CompanyModule'},
+    { path: 'developer', loadChildren: () => import('./developer/developer.module').then(m => m.DeveloperModule)},
+    { path: 'company', loadChildren: () => import('./company/company.module').then(m => m.CompanyModule)},
     // {
     //     path: ':unique_name', resolve: {company: CompanyResolver},
     //     runGuardsAndResolvers: 'always',
