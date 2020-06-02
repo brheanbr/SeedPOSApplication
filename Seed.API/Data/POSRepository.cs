@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Seed.API.Models;
@@ -32,6 +33,26 @@ namespace Seed.API.Data
             return company;
         }
 
-       
+        public async Task<Employee> CashierLogin(string username, string password, int CompanyId)
+        {
+            var cashier = await _context.Employees.Where(x => x.CompanyId == CompanyId).FirstOrDefaultAsync(x => x.Username == username);
+
+            if(cashier == null)
+                return null;
+            if(!VerifyPasswordHash(password, cashier.PasswordHash, cashier.PasswordSalt))
+                return null;
+            return cashier;
+        }
+        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+        {
+              using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt)){
+               
+               var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+               for (int i = 0; i < computedHash.Length; i++){
+                   if(computedHash[i] != passwordHash[i]) return false;
+               }
+            }
+            return true;
+        }
     }
 }

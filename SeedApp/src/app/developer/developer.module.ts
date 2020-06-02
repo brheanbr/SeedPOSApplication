@@ -6,7 +6,6 @@ import { CompanySetupComponent } from './developer-dashboard/company-setup/compa
 import { CompanyCardComponent } from './developer-dashboard/company-setup/company-card/company-card.component';
 import { CompanyEmployeeComponent } from './developer-dashboard/company-setup/company-employee/company-employee.component';
 import { DeveloperLoginComponent } from './developer-login/developer-login.component';
-import { AddMenuComponent } from './add-menu/add-menu.component';
 
 import { SharedModule } from '../_shared/shared.module';
 
@@ -21,7 +20,7 @@ import { ErrorInterceptorProvider } from '../_services/error.interceptor';
 import { CompanyDetailsComponent } from './developer-dashboard/company-setup/company-details/company-details.component';
 import { CompanyDetailsResolver } from './_resolver/company-details.resolver';
 import { FilterPipe } from '../_shared/_pipes/filter.pipe';
-
+import { FilterEmployeePipe } from '../_shared/_pipes/filterEmployee.pipe';
 
 export function tokenGetter() {
   const token = localStorage.getItem('token');
@@ -41,10 +40,10 @@ export function tokenGetter() {
     CompanySetupComponent,
     CompanyCardComponent,
     CompanyEmployeeComponent,
-    AddMenuComponent,
     DeveloperLoginComponent,
     CompanyDetailsComponent,
-    FilterPipe
+    FilterPipe,
+    FilterEmployeePipe,
   ],
   imports: [
     SharedModule,
@@ -55,7 +54,6 @@ export function tokenGetter() {
   ],
   providers: [
     ErrorInterceptorProvider,
-    DeveloperDashboardResolver,
     CompanyDetailsResolver
   ]
 })

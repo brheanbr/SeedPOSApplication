@@ -32,7 +32,21 @@ namespace Seed.API.Controllers
             var userToReturn = _mapper.Map<CompanyToReturnDto>(company);
             //new CompanyDataContext(userToReturn.Subscription.ConnectionString);
             return Ok(userToReturn);
+        }
 
+        [HttpPost("cashier-login")]
+        public async Task<IActionResult> CashierLogin(CashierForLoginDto cashierForLogin)
+        {
+            if(cashierForLogin.Username == null || cashierForLogin.Password == null)
+                return BadRequest("Please login Username and Password!");
+            if(int.Parse(cashierForLogin.CompanyId) != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+            var cashierFromRepo = await _repo.CashierLogin(cashierForLogin.Username, cashierForLogin.Password, int.Parse(cashierForLogin.CompanyId));
+            if(cashierFromRepo == null)
+                return BadRequest("Wrong Username or Password!");
+
+            var cashier = _mapper.Map<EmployeesToReturnDto>(cashierFromRepo);
+            return Ok(new{cashier});
         }
 
     }

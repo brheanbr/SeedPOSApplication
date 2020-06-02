@@ -25,7 +25,6 @@ constructor(private http: HttpClient, private router: Router) { }
         if (admin) {
           localStorage.setItem('token', admin.token);
           this.decodedToken = this.jwtHelper.decodeToken(admin.token);
-          console.log(this.decodedToken);
         }
       })
     );
@@ -36,7 +35,4 @@ constructor(private http: HttpClient, private router: Router) { }
       return !this.jwtHelper.isTokenExpired(token);
   }
 
-  companyRegister(company: Company) {
-    return this.http.post(environment.baseUrl + 'adminauth/register-company', company);
-  }
 }

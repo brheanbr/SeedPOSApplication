@@ -1,5 +1,6 @@
 import * as fromCompany from './company.reducer';
 import * as fromProduct from './product.reducer';
+import * as fromEmployee from './employee.reducer';
 import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
 import { RouterStateSnapshot } from '@angular/router';
 export * from './company.reducer';
@@ -8,11 +9,13 @@ export * from './product.reducer';
 export interface ProductState {
     company: fromCompany.CompanyState;
     products: fromProduct.ProductState;
+    employees: fromEmployee.EmployeeState;
 }
 
 export const reducers: ActionReducerMap<ProductState> = {
     company: fromCompany.companyreducer,
-    products: fromProduct.productReducer
+    products: fromProduct.productReducer,
+    employees: fromEmployee.employeeReducer,
 };
 
 export const getCompanyFeatureState = createFeatureSelector<ProductState>('companies');

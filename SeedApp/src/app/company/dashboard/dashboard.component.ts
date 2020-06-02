@@ -13,19 +13,7 @@ export class DashboardComponent implements OnInit {
   constructor(private route: ActivatedRoute, private alertify: AlertifyService, private router: Router) { }
 
   ngOnInit() {
-    this.route.data.subscribe(data => {
-      this.company = data.company;
-      //this.checkIfNull();
-    });
-  }
-
-  checkIfNull() {
-    if (this.company) {
-      this.alertify.success('Loaded Sucessfully!');
-    } else {
-      this.alertify.error('User not Available!');
-      this.router.navigate(['/home']);
-    }
+    
   }
 
 }

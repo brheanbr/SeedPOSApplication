@@ -9,8 +9,8 @@ export class FilterPipe implements PipeTransform {
             return product;
         }
 
-        return product.filter(product => product.ProductName.toLowerCase()
-            .indexOf(searchTerm.toLowerCase()) !== -1 || product.ProductType.toLowerCase()
+        return product.filter(products => products.ProductName.toLowerCase()
+            .indexOf(searchTerm.toLowerCase()) !== -1 || products.ProductType.toLowerCase()
             .indexOf(searchTerm.toLowerCase()) !== -1);
     }
 }

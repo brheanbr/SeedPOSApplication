@@ -67,26 +67,6 @@ namespace Seed.API.Data
             };
         }
 
-        public async Task<bool> CompanyUserExist(string username)
-        {
-            if(await _context.Companies.AnyAsync(x => x.CompanyUsername == username))
-                return true;
-            return false;
-        }
-
-        public async Task<Company> RegisterCompany(Company company, string password)
-        {
-            byte[] passwordHash, passwordSalt;
-            CreatePasswordHash(password, out passwordHash, out passwordSalt);
-            company.PasswordHash = passwordHash;
-            company.PasswordSalt = passwordSalt;
-
-            await _context.Companies.AddAsync(company);
-            await _context.SaveChangesAsync();
-            return company;
-
-        }
-
       
     }
 }

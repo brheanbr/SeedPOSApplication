@@ -83,6 +83,7 @@
 
 /* Tabs */
 .employee-box, .product-box {
+    background-color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -101,6 +102,7 @@ height: auto;
 width: auto;
 }
 .tab-border {
+background-color: #f8f3eb;
 border: 0.5px solid #17a2b8;
 box-shadow: 0px 7px 30px 2px rgba(0, 0, 0, 0.18);
 }
@@ -118,17 +120,9 @@ width: 150px;
 }
 
 /* Main Panel */
-.card-main-header {
-    width: 90%;
-    height: 150px;
-    box-shadow: 0px 7px 30px 2px rgba(0, 0, 0, 0.18);
-    position: relative;
-    margin-bottom: -130px;
-    background-color: #952cae;
-    border: 0.5px solid #952cae;
-    z-index: 1;
-    color: white;
-    transition-duration: 500ms;
+.main-cont {
+    background-color: #f8f3eb;
+    padding: 2px 20px 40px;
 }
 .header-img {
     height: 20px;
@@ -142,18 +136,13 @@ width: 150px;
     background-color: #EDE7F6;
     padding-bottom: 40px ;
 }
-.card-main-body .tab-cont {
-    margin-top: 115px;
+.tab-cont {
+    background-color: white;
+    min-height: 500px;
 }
 .ad {
     margin-top: 220px;
 }
-.main-pan:hover .card-main-header{
-    margin-bottom: -90px;
-    transition-duration: 500ms;
-    transition-timing-function: ease-out;
-}
-
 table {
     width: 100%;
     color: black;
@@ -166,8 +155,8 @@ table tr:hover {
     cursor: pointer;
 }
 .tbl-cont{
+    min-height: 500px;
     padding: 20px 20px;
-    
 }
 .mat-header-cell {
     text-align: center;
@@ -178,4 +167,7 @@ table tr:hover {
 .table-img-action {
     height: 20px;
     width: 20px;
+}
+.search-box {
+    width: 400px;
 }

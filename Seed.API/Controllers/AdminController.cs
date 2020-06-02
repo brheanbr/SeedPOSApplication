@@ -23,19 +23,19 @@ namespace Seed.API.Controllers
             _mapper = mapper;
             _repo = repo;
             _context = context;
-
         }
 
-        // [HttpPost("subscribe")]
-        // public async Task<IActionResult> Subscribe(SubsToCreate substoCreateDto)
-        // {
-        //     if (await _repo.IsSubscribed(substoCreateDto.CompanyId))
-        //         return BadRequest("Already Subscribed");
-        //     var subsToCreate = _mapper.Map<Subscription>(substoCreateDto);
-        //     subsToCreate.SubscriptionStart = DateTime.Today;
-        //     await _repo.Subscribe(subsToCreate);
-        //     return NoContent();
-        // }
+        [HttpPost("register-company")]
+        public async Task<IActionResult> RegisterCompany(CompanyForRegisterDto companyForRegisterDto)
+        {
+            companyForRegisterDto.CompanyUsername = companyForRegisterDto.CompanyUsername.ToLower();
+            if (await _repo.CompanyUserExist(companyForRegisterDto.CompanyUsername))
+                return BadRequest("Company Username Already Exist!");
+            var companyToCreate = _mapper.Map<Company>(companyForRegisterDto);
+            var createdCompany = await _repo.RegisterCompany(companyToCreate, companyForRegisterDto.CompanyPassword);
+            var companyToReturn = _mapper.Map<CompanyToReturnDto>(createdCompany);
+            return Ok(companyToReturn);
+        }
 
         [HttpGet("companies")]
         public async Task<IActionResult> GetCompanies()
@@ -78,7 +78,7 @@ namespace Seed.API.Controllers
             // if(company == null) {
             //     return BadRequest("Can't Find Company");
             // }
-            if(await _repo.ProductExist(productToCreateDto.ProductName, productToCreateDto.CompanyId))
+            if(await _repo.ToRegisterProductExist(productToCreateDto.ProductName, productToCreateDto.CompanyId))
                 return BadRequest("Name Already Exist");
             var productToCreate = _mapper.Map<Product>(productToCreateDto);
             var productFromRepo = await _repo.RegisterProduct(productToCreate);
@@ -86,22 +86,22 @@ namespace Seed.API.Controllers
             return Ok(productToReturn);
         }
 
-        //Get products by Bompany
+        //Get products by Company
         [HttpGet("products/{id}")]
         public async Task<IActionResult> GetProducts(int id)
         {
-            var productsFromRepo= await _repo.GetProducts(id);
+            var productsFromRepo = await _repo.GetProducts(id);
             if( productsFromRepo == null )
                 return BadRequest("Can't Find Any Products");
-            return Ok(productsFromRepo);
-            
+            var productsToReturn = _mapper.Map<IEnumerable<ProductToReturnDto>>(productsFromRepo);
+            return Ok(productsToReturn);
         }
 
         //Edit Company Products
         [HttpPut("edit-product")]
         public async Task<IActionResult> EditProduct(ProductToEdit productToEdit)
-        {
-            if(await _repo.ProductExist(productToEdit.ProductName, productToEdit.CompanyId))
+        {   
+            if(await _repo.ProductExist(productToEdit.ProductName, productToEdit.Id, productToEdit.CompanyId))
                 return BadRequest("Name Already Exist");
             var productFromRepo = await _repo.GetProduct(productToEdit.Id);
             _mapper.Map(productToEdit , productFromRepo);
@@ -123,11 +123,48 @@ namespace Seed.API.Controllers
                 _repo.Delete(productFromRepo);
             if(await _repo.SaveAll())
                 return Ok();
-            return BadRequest("Error Deleting Data");
+            return BadRequest("Problem Deleting Data!");
         }
 
+        //Employees
+        //Register Employees
+        [HttpPost("register-employee")]
+        public async Task<IActionResult> RegisterEmployee(EmployeeForRegisterDto employeeForRegisterDto)
+        {   
+            if(employeeForRegisterDto.EmployeeType == "Cashier")
+            {
+                employeeForRegisterDto.Username = employeeForRegisterDto.Username.ToLower();
+                if(await _repo.EmployeeUsernameExist(employeeForRegisterDto.Username , employeeForRegisterDto.CompanyId))
+                    return BadRequest("Username Already Exist");
+            }
+            var employeeToCreate = _mapper.Map<Employee>(employeeForRegisterDto);
+            var createdEmployee = await _repo.RegisterEmployee(employeeToCreate, employeeForRegisterDto.Password);
+            var employeeToReturn = _mapper.Map<EmployeesToReturnDto>(createdEmployee);
+            return Ok(employeeToReturn);
+        }
 
+        //Get Employees By Company
+        [HttpGet("employees/{id}")]
+        public async Task<IActionResult> GetEmployees(int id)
+        {
+            var employees = await _repo.GetEmployees(id);
+            var EmployeesToReturn = _mapper.Map<IEnumerable<EmployeesToReturnDto>>(employees);
+            return Ok(EmployeesToReturn);
+        }
 
+        //Delete Employee
+        [HttpDelete("delete-employee/{id}")]
+        public async Task<IActionResult> DeleteEmployee(int id)
+        {
+            var employeeFromRepo = await _repo.GetEmployee(id);
+            if(employeeFromRepo != null)
+            {
+                _repo.Delete(employeeFromRepo);
+            }
+            if(await _repo.SaveAll())
+                return Ok();
+            return BadRequest("Problem Deleting Data!");
+        }
 
     }
 }

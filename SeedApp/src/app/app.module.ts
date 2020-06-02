@@ -17,15 +17,7 @@ import { appRoutes } from './routes';
 
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
 
-import { DashboardComponent } from './company/dashboard/dashboard.component';
-import { CompanyLoginComponent } from './company/company-login/company-login.component';
-import { CompanyResolver } from './_resolver/company.resolver';
-import { CashierComponent } from './company/dashboard/cashier/cashier.component';
-import { DepartmentsComponent } from './company/dashboard/departments/departments.component';
-import { AdminSetupComponent } from './company/dashboard/admin-setup/admin-setup.component';
-
 import { SharedModule } from './_shared/shared.module';
-import { DeveloperDashboardResolver } from './_resolver/developer-dashboard.resolver';
 import { StoreModule, MetaReducer } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { environment } from 'src/environments/environment';
@@ -52,13 +44,7 @@ export const metaReducers: MetaReducer<any>[] = [];
    declarations: [
       AppComponent,
       NavbarComponent,
-      DashboardComponent,
-      HomeComponent,
-      CompanyLoginComponent,
-      CashierComponent,
-      DepartmentsComponent,
-      AdminSetupComponent
-
+      HomeComponent
    ],
    imports: [
       SharedModule,
@@ -81,7 +67,6 @@ export const metaReducers: MetaReducer<any>[] = [];
    ],
    providers: [
       ErrorInterceptorProvider,
-      CompanyResolver,
       ],
    bootstrap: [
       AppComponent

@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { Company, Product } from 'src/app/_models';
+import { Observable } from 'rxjs';
 
 export const LOAD_COMPANIES = '[Company] Load Companies';
 export const LOAD_COMPANIES_FAIL = '[Company] Load Companies Fail';

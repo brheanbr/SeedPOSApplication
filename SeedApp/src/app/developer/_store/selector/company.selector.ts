@@ -51,3 +51,7 @@ export const getCompanyError = createSelector(
     getCompanyState,
     state => state.error
 );
+export const getCompanyEntity = (id: string) => createSelector(
+    getCompanyState,
+    state => state.entities[id]
+);

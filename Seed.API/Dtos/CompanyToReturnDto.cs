@@ -11,6 +11,5 @@ namespace Seed.API.Dtos
         public string CompanyOwner { get; set; }
         public string ContactNumber { get; set; }
         public string CompanyAddress { get; set; }
-        public ICollection<ProductToReturnDto> Products { get; set; }
     }
 }

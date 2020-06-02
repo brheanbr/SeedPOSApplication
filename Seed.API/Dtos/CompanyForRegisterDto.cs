@@ -8,7 +8,7 @@ namespace Seed.API.Dtos
         public string CompanyUsername { get; set; }
         
         [Required]
-        [StringLength(8, MinimumLength = 4, ErrorMessage = "Password Lenght is 4 to 8 characters")]
+        [StringLength(8, MinimumLength = 4, ErrorMessage = "Password Length is 4 to 8 characters")]
         public string CompanyPassword { get; set; }
         [Required]
         public string CompanyName { get; set; }

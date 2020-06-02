@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, Input } from '@angular/core';
-import { Employees } from 'src/app/_models/Employees';
+import { Employee } from 'src/app/_models/Employee';
 import { AdminService } from 'src/app/_services/Admin.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { AdminService } from 'src/app/_services/Admin.service';
 })
 export class CompanyEmployeeComponent implements OnInit {
 
-  employeesList: Employees[];
+  employeesList: Employee[];
   constructor(public adminservice: AdminService) { }
 
   ngOnInit() {

@@ -13,6 +13,7 @@ namespace Seed.API.Models
         public string ContactNumber { get; set; }
         public string CompanyAddress { get; set; }
         public ICollection<Product> Products { get; set; }
+        public ICollection<Employee> Employees { get; set; }
 
     }
 }

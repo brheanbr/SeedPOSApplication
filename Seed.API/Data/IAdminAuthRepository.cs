@@ -9,8 +9,5 @@ namespace Seed.API.Data
          Task<Admin> RegisterAdmin(Admin admin, string password);
          Task<Admin> Login(string username, string password);
          Task<bool> AdminUserExist(string username);
-         Task<Company> RegisterCompany(Company company, string password);
-         Task<bool> CompanyUserExist(string username);
-         
     }
 }

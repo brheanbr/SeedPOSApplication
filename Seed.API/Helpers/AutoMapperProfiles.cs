@@ -16,6 +16,8 @@ namespace Seed.API.Helpers
             CreateMap<Product, ProductToReturnDto>();
             CreateMap<ProductToCreateDto, Product>();
             CreateMap<ProductToEdit, Product>();
+            CreateMap<EmployeeForRegisterDto, Employee>();
+            CreateMap<Employee, EmployeesToReturnDto>();
         }
     }
 }

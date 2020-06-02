@@ -13,11 +13,9 @@ export class CompanyLoginComponent implements OnInit {
   constructor(private companyAuth: CompanyAuthService, private alertify: AlertifyService, private router: Router) { }
 
   ngOnInit() {
-    localStorage.removeItem('companytoken');
+    // localStorage.removeItem('companytoken');
   }
   login() {
-
-
     this.companyAuth.companyLogin(this.companyModel).subscribe(
       next => {
         this.alertify.success('Successfully Signed In!');
@@ -25,7 +23,7 @@ export class CompanyLoginComponent implements OnInit {
         this.alertify.error(error);
       } , () => {
         const uniqueName = this.companyAuth.decodedToken.unique_name;
-        this.router.navigate([uniqueName, 'dashboard']);
+        this.router.navigate(['company' , uniqueName, 'dashboard']);
       }
     );
   }

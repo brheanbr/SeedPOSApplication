@@ -9,6 +9,7 @@ namespace Seed.API.Data
          void Delete<T>(T entity) where T: class;
          Task<bool> SaveAll();
          Task<Company> GetCompany(int id);
+         Task<Employee> CashierLogin(string username, string password, int CompanyId);
     }
     
 }

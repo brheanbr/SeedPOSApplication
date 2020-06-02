@@ -1,0 +1,32 @@
+<div class="container col-sm-12 col-xm-12 col-md-7">
+  <div class="card text-white login-card">
+    <div class="card-header login-header">
+      <h5>Cashier Login</h5>
+    </div>
+    <div class="card-body login-body">
+      <form #loginForm="ngForm" (ngSubmit)="login()">
+        <div class="form-group mt-2">
+          <label for="exampleInputEmail1">Username</label>
+          <div class="input-group">
+              <div class="input-group-prepend">
+                  <div class="input-group-text"><i class="fa fa-user"></i></div>
+              </div>
+            <input type="email" name="username" class="form-control"  placeholder="Username" [(ngModel)]="username">
+          </div>          
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text"><i class="fa fa-asterisk"></i></div>
+            </div>
+              <input type="password" name="password" class="form-control" placeholder="Password" [(ngModel)]="password">
+          </div>
+        </div>
+        <div class="row justify-content-end mb-3">
+            <button class="login-btn-padding col align-self-end col-md-6 col-sm-10 text-success mt-2"><i class="fa fa-door-open"></i> Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

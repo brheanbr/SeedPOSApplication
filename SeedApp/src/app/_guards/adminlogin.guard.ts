@@ -9,7 +9,7 @@ import { CompanyAuthService } from '../_services/company-auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class LoginGuard implements CanActivate {
+export class AdminLoginGuard implements CanActivate {
 
   constructor(private adminAuth: AdminAuthService, private companyAuth: CompanyAuthService,
               private alertify: AlertifyService, private router: Router) {}
@@ -20,7 +20,6 @@ export class LoginGuard implements CanActivate {
       this.router.navigate(['developer/developer-dashboard']);
       return true;
     }
-    this.alertify.message('Please Sign In');
     return true;
   }
 }

@@ -74,20 +74,4 @@ export class CompanyEffects {
             )
         )
     );
-
-    // @Effect()
-    // addCompanyProduct$ = this.actions$
-    // .pipe(
-    //     ofType<companyActions.AddCompanyProduct>(companyActions.ADD_COMPANY_PRODUCT),
-    //     map((action: companyActions.AddCompanyProduct) => action.payload),
-    //     mergeMap(
-    //         (product: Product) => this.adminService.addCompanyProduct(product)
-    //         .pipe(
-    //             map((newProduct: Product) =>
-    //                 new companyActions.AddCompanyProductSuccess(newProduct)
-    //             ),
-    //             catchError(error => of(new companyActions.AddCompanyProductFail(error)))
-    //         )
-    //     ),
-    // );
 }

@@ -4,10 +4,10 @@
         <div class="collapse navbar-collapse" id="collapseBasic" [collapse]="isCollapsed" [isAnimated]="true">
            <ul class="navbar-nav mr-auto" *ngIf="companyLoggedin()">
             <li class="nav-item" routerLinkActive="active">
-                <a class="nav-link" [routerLink]="[this.companyAuth.decodedToken.unique_name,'dashboard']" routerLinkActive="router-link-active">Dashboard</a>
+                <a class="nav-link" [routerLink]="['company',this.companyAuth.decodedToken.unique_name,'dashboard']" routerLinkActive="router-link-active">Dashboard</a>
               </li>
               <li routerLinkActive="active">
-                <a class="nav-link" [routerLink]="[this.companyAuth.decodedToken.unique_name,'cashier']" routerLinkActive="router-link-active">Cashier</a>
+                <a class="nav-link" [routerLink]="['company',this.companyAuth.decodedToken.unique_name,'cashier']" routerLinkActive="router-link-active">Cashier</a>
               </li>
               <li class="nav-item" routerLinkActive="active">
                 <a class="nav-link" [routerLink]="[this.companyAuth.decodedToken.unique_name,'departments']" routerLinkActive="router-link-active">Departments</a>
@@ -37,7 +37,7 @@
                     <a class="dropdown-toggle" dropdownToggle>
                       SIGN IN
                       <div class="dropdown-menu mt-2" *dropdownMenu>
-                      <a class="dropdown-item" [routerLink]="['/company-login']" routerLinkActive="active"><i class="fa fa-seedling mr-1"></i>Company</a>
+                      <a class="dropdown-item" [routerLink]="['company/login']" routerLinkActive="active"><i class="fa fa-seedling mr-1"></i>Company</a>
                       <div class="dropdown-divier"></div>
                       <a class="dropdown-item" [routerLink]="['developer/developer-login']" routerLinkActive="active" ><span></span><i class="fa fa-laptop-code mr-1"></i>Developer</a>
                       </div>

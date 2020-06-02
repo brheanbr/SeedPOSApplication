@@ -80,17 +80,7 @@ namespace Seed.API.Controllers
                 token = tokenHandler.WriteToken(token),
             });
         }
-        [HttpPost("register-company")]
-        public async Task<IActionResult> RegisterCompany(CompanyForRegisterDto companyForRegisterDto)
-        {
-            companyForRegisterDto.CompanyUsername = companyForRegisterDto.CompanyUsername.ToLower();
-            if (await _repo.CompanyUserExist(companyForRegisterDto.CompanyUsername))
-                return BadRequest("Company Username Already Exist!");
-            var companyToCreate = _mapper.Map<Company>(companyForRegisterDto);
-            var createdCompany = await _repo.RegisterCompany(companyToCreate, companyForRegisterDto.CompanyPassword);
-            var companyToReturn = _mapper.Map<CompanyToReturnDto>(createdCompany);
-            return Ok(companyToReturn);
-        }
+        
 
 
     }

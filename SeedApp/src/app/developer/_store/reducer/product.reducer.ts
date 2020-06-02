@@ -84,7 +84,7 @@ export function productReducer(state = initialstate, action: fromProduct.Product
         }
 
         case fromProduct.DELETE_COMPANY_PRODUCT_SUCCESS: {
-            return productAdapter.removeOne(action.payload, state)
+            return productAdapter.removeOne(action.payload, state);
         }
 
         default:
