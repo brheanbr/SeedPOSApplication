@@ -1,9 +1,15 @@
-import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { POSService } from 'src/app/_services/POS.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { CompanyAuthService } from 'src/app/_services/company-auth.service';
 import { Order } from 'src/app/_models/Order';
-import { MatTable } from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
+import * as fromStore from '../_store';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { Product } from 'src/app/_models';
+import { DatePipe } from '@angular/common';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-cashier',
@@ -11,53 +17,110 @@ import { MatTable } from '@angular/material/table';
   styleUrls: ['./cashier.component.css']
 })
 export class CashierComponent implements OnInit {
-  orders: Array<Order> = [];
-  newOrder: any = {};
-  customerNumber: string;
-  displayedColumns = ['Qty', 'Item', 'Price', 'Total', 'Action'];
-  @ViewChildren(MatTable) table: MatTable<any>;
+  products$: Observable<Product[]>;
 
-  // orders = [
-  //   {position: 1, name: 'Hydrssssssssss', weight: 1.0079, symbol: 'H1212'},
-  //   {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  //   {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  //   {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  //   {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  //   {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  //   {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  //   {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  //   {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  //   {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne88'},
-  // ];
-  constructor(public posService: POSService, public alertify: AlertifyService, public companyAuth: CompanyAuthService) { }
+  dateNow = new Date();
+  orders: Array<Order> = [];
+  subTotal = 0;
+  grandTotal = 0;
+  newOrder: any = {};
+  // customerNumber: string;
+  displayedColumns = ['Qty', 'Item', 'Price', 'Total', 'Action'];
+  dataSource = new MatTableDataSource(this.orders);
+  searchText: string;
+  searchType: string;
+  itemsPerSlide = 3;
+  singleSlideOffset = true;
+  noWrap = true;
+  itemType = ['Others', 'Beverages' , 'Soup', 'Salad', 'Burger', 'Chicken', 'Fish', 'Beef', 'Pork', 'Seafoods',
+              'Vegetable', 'Appetizer', 'Bayanihan', 'Dessert', 'Merienda Special', 'Sizzling Choice', 'Rice Toppings'];
+
+  orderForm: FormGroup;
+
+  constructor(public posService: POSService, public alertify: AlertifyService,
+              public companyAuth: CompanyAuthService, public productStore: Store<fromStore.ProductAction>,
+              public fb: FormBuilder) { }
 
   ngOnInit() {
-    const x = {qty: 1, item: 'test', price: 200, total : 200 };
-    this.orders.push(x);
+    setInterval(() => {
+      this.dateNow = new Date();
+    }, 1000);
+    this.productStore.dispatch(new fromStore.LoadProduct(this.companyAuth.decodedToken.nameid));
+    this.products$ = this.productStore.pipe(select(fromStore.getPOSProducts));
+    this.createOrderForm();
   }
+
+  createOrderForm() {
+    this.orderForm = this.fb.group({
+      customerNumber: ['', Validators.required],
+      transaction: ['', Validators.required],
+      companyId: [this.companyAuth.decodedToken.nameid],
+      products: [this.dataSource.data],
+      vat: [''],
+      discount: [''],
+      isPaid: [false]
+    });
+  }
+  makeOrder() {
+    this.orderForm.addControl('cashierId', new FormControl(this.getCashierId()));
+    this.orderForm.addControl('subTotal', new FormControl(this.getSubTotal()));
+    this.orderForm.addControl('grandTotal', new FormControl(this.getGrandTotal()));
+    const order = Object.assign({}, this.orderForm.value);
+    console.log(order);
+  }
+
   cashierLoggedin() {
     return this.posService.loggedIn();
   }
+  getCustomerNumber() {
+    const order = Object.assign({}, this.orderForm.value);
+    return order.customerNumber;
+  }
   qtyAdd(x) {
     this.orders[x].qty = this.orders[x].qty + 1;
+    this.orders[x].total = this.orders[x].qty * this.orders[x].price;
+    this.subTotal = this.getSubTotal();
+    this.grandTotal = this.getGrandTotal();
   }
   qtyMinus(x) {
-    if (this.orders[x].qty > 0) {
+    if (this.orders[x].qty > 1) {
       this.orders[x].qty = this.orders[x].qty - 1;
+      this.orders[x].total = this.orders[x].qty * this.orders[x].price;
     }
+    this.subTotal = this.getSubTotal();
+    this.grandTotal = this.getGrandTotal();
   }
   removeOrder(z) {
     this.orders.splice(z, 1);
-    this.table.renderRows();
+    this.dataSource._updateChangeSubscription();
+    this.subTotal = this.getSubTotal();
+    this.grandTotal = this.getGrandTotal();
   }
-  addOrder(i) {
-    console.log(i);
-    this.newOrder = {qty: 2, item: 'tasdest', price: 200, total : 200 };
+  addOrder(order: Product) {
+    const q = 1;
+    this.newOrder = {qty: q, item: order.ProductName, price: order.Price, total : order.Price * q };
     this.orders.push(this.newOrder);
     this.newOrder = {};
-    console.log(this.orders);
-    this.table.renderRows();
+    this.dataSource._updateChangeSubscription();
+    this.subTotal = this.getSubTotal();
+    this.grandTotal = this.getGrandTotal();
   }
-
-
+  getCashierId() {
+    return this.posService.cashier.EmployeeId;
+  }
+  getSubTotal() {
+    return this.orders.reduce((acc, orders) => acc + orders.total, 0);
+  }
+  getGrandTotal() {
+    const order = Object.assign({}, this.orderForm.value);
+    const total = this.orders.reduce((acc, orders) => acc + orders.total, 0);
+    const discount = total * order.discount;
+    const grandTotal = total - discount;
+    this.grandTotal = grandTotal;
+    return grandTotal;
+  }
+  logout() {
+    localStorage.removeItem('cashier');
+    this.alertify.success('Successfully Signed Out!');
+  }
 }

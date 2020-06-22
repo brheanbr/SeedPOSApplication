@@ -1,0 +1,33 @@
+.card {
+    overflow: hidden;
+    height: 100px;
+    background: rgb(137,242,118);
+    background: linear-gradient(90deg, rgba(137,242,118,1) 0%, rgba(163,255,146,1) 62%, rgba(185,250,173,1) 100%);
+}
+.img-container{
+    height: 35px;
+    overflow: hidden;
+}
+img {
+    transition-duration: 150ms;
+    transition-timing-function: ease-out;
+    width: 150px;
+    height: 150px;
+}
+.card:hover img {
+    transition-duration: 150ms;
+    transition-timing-function: ease-out;
+    margin-top: -30px;
+    transform: rotate(120deg);
+} 
+.card:hover {
+    cursor: pointer;
+    border: 1px solid black;
+    transition-duration: 500ms;
+    transition-timing-function: ease-out;
+}
+.container-fluid {
+    height: 100px;
+    background: rgb(137,231,121);
+    background: linear-gradient(90deg, rgba(137,231,121,1) 0%, rgba(141,241,123,1) 62%, rgba(180,238,170,1) 100%);
+}

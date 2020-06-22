@@ -57,15 +57,25 @@
                   <div class="col-md-12">
                     <mat-form-field class="one-form-field"  color = accent>
                       <mat-label>Classification</mat-label>
-                      <select matNativeControl required formControlName="productType" value="productType">
-                        <option value="Others" >Others</option>
-                        <option value="Beverage">Beverage</option>
-                        <option value="Main Course">Main Course</option>
-                        <option value="Side Dish">Side Dish</option>
-                        <option value="Appetizer">Appetizer</option>
-                        <option value="Bayanihan">Bayanihan</option>
-                        <option value="Dessert">Dessert</option>
-                      </select>
+                      <mat-select matNativeControl required formControlName="productType" value="productType">
+                        <mat-option value="Others" >Others</mat-option>
+                        <mat-option value="Beverage">Beverage</mat-option>
+                        <mat-option value="Soup">Soup</mat-option>
+                        <mat-option value="Salad">Salad</mat-option>
+                        <mat-option value="Burger">Burger</mat-option>
+                        <mat-option value="Chicken">Chicken</mat-option>
+                        <mat-option value="Fish">Fish</mat-option>
+                        <mat-option value="Beef">Beef</mat-option>
+                        <mat-option value="Pork">Pork</mat-option>
+                        <mat-option value="Seafoods">Seafoods</mat-option>
+                        <mat-option value="Vegetable">Vegetable</mat-option>
+                        <mat-option value="Appetizer">Appetizer</mat-option>
+                        <mat-option value="Bayanihan">Bayanihan</mat-option>
+                        <mat-option value="Dessert">Dessert</mat-option>
+                        <mat-option value="Merienda Special">Merienda Special</mat-option>
+                        <mat-option value="Sizzling Choice">Sizzling Choice</mat-option>
+                        <mat-option value="Rice Toppings">Rice Toppings</mat-option>
+                      </mat-select>
                     </mat-form-field>
                   </div>
                 </div>
@@ -115,12 +125,12 @@
                     <div class="col-md-6">
                       <mat-form-field class="two-form-field"  color = accent>
                         <mat-label>Position</mat-label>
-                        <select matNativeControl required formControlName="employeeType" value="employeeType" (click)="checkType()">
-                          <option value="Others">Others</option>
-                          <option value="Cashier">Cashier</option>
-                          <option value="Cook">Cook</option>
-                          <option value="Service Crew">Service Crew</option>
-                        </select>
+                        <mat-select matNativeControl required formControlName="employeeType" value="employeeType" (click)="checkType()">
+                          <mat-option value="Others">Others</mat-option>
+                          <mat-option value="Cashier">Cashier</mat-option>
+                          <mat-option value="Cook">Cook</mat-option>
+                          <mat-option value="Service Crew">Service Crew</mat-option>
+                        </mat-select>
                       </mat-form-field>
                     </div>
                     <div class="col-md-12" *ngIf="addUsernameField()">
@@ -206,7 +216,7 @@
                           </ng-template>
                         </td>
                       </ng-container> 
-                      <tr mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></tr>
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>
                   </div>

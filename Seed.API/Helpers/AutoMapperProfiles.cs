@@ -18,6 +18,8 @@ namespace Seed.API.Helpers
             CreateMap<ProductToEdit, Product>();
             CreateMap<EmployeeForRegisterDto, Employee>();
             CreateMap<Employee, EmployeesToReturnDto>();
+            CreateMap<Order, OrderToCreateDto>();
+            CreateMap<OrderToCreateDto, Order>();
         }
     }
 }

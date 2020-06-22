@@ -36,4 +36,8 @@ constructor(private http: HttpClient) { }
     return this.http.get<Company>(environment.baseUrl + 'pos/' + company + '/' + id);
   }
 
+  loadCompanyProducts(id: string) {
+    return this.http.get(environment.baseUrl + 'admin/products/' + id);
+  }
+
 }

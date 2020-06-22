@@ -8,8 +8,16 @@ import { DepartmentsComponent } from './departments/departments.component';
 import { SharedModule } from '../_shared/shared.module';
 import { CompanyRoutes } from './company.routing';
 import { CashierLoginComponent } from './cashier-login/cashier-login.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './_store/_reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { posEffects } from './_store';
+import { ProductCardComponent } from './product-card/product-card.component';
+import { FilterPosProductsPipe } from '../_shared/_pipes/filterPosProducts.pipe';
 
 
+
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 @NgModule({
     declarations: [
@@ -18,11 +26,16 @@ import { CashierLoginComponent } from './cashier-login/cashier-login.component';
         AdminSetupComponent,
         CashierComponent,
         DepartmentsComponent,
-        CashierLoginComponent
+        CashierLoginComponent,
+        ProductCardComponent,
+        FilterPosProductsPipe
     ],
     imports: [
         SharedModule,
-        CompanyRoutes
+        CompanyRoutes,
+        StoreModule.forFeature('products', reducers),
+        EffectsModule.forFeature(posEffects),
+        CarouselModule.forRoot()
     ],
     providers: []
 })

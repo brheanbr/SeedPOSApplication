@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Seed.API.Data;
 using Seed.API.Dtos;
+using Seed.API.Models;
 
 namespace Seed.API.Controllers
 {
@@ -47,6 +48,14 @@ namespace Seed.API.Controllers
 
             var cashier = _mapper.Map<EmployeesToReturnDto>(cashierFromRepo);
             return Ok(new{cashier});
+        }
+
+        [HttpPost("make-order")]
+        public async Task<IActionResult> MakeOrder(OrderToCreateDto orderToCreate)
+        {
+            var order = _mapper.Map<Order>(orderToCreate);
+            var createdOrder = await _repo.MakeOrder(order);
+            return Ok(createdOrder);
         }
 
     }

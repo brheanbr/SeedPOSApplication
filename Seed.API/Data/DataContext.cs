@@ -11,10 +11,23 @@ namespace Seed.API.Data
         public DbSet<Company> Companies{ get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
      
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Order>()
+                .HasKey(k => k.OrderId);
+            modelBuilder.Entity<Order>()
+                .HasOne(k => k.Employee)
+                .WithMany(o => o.Orders)
+                .HasForeignKey(k => k.EmployeeId)
+                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Order>()
+                .HasOne(k => k.Company)
+                .WithMany(o => o.Orders)
+                .HasForeignKey(k => k.CompanyId)
+                .OnDelete(DeleteBehavior.Restrict);
         //    modelBuilder.Entity<Subscription>()
         //     .HasKey(k => new {k.CompanyId, k.ConnectionStringId});
         //    modelBuilder.Entity<ConnectionStrings>()

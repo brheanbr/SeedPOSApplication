@@ -3,12 +3,13 @@
     width: 60%;
 }
 .login-btn-padding {
-margin: auto;
+    border: 2px solid white;
+    margin: auto;
 }
 .login-header {
-background-color: #4CAF50;
+    background-color: #4CAF50;
 }
 .login-body {
-background-color: #00a65a;
+    background-color: #00a65a;
 }
 

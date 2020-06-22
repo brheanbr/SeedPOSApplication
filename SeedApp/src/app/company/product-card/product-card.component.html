@@ -1,0 +1,15 @@
+<div class="card" (click)="selectProduct(products$)"  matRipple>
+    <div class="row">
+        <div class="col col-md-12 img-container"><img src="assets/items.png"></div>
+    </div>
+    <div class="row">
+        <div class="container-fluid text-center">
+            <h6 *ngIf="products$.ProductName.length >= 15">{{products$.ProductName}}</h6>
+            <h5 *ngIf="products$.ProductName.length < 15">{{products$.ProductName}}</h5>
+            <h6 *ngIf="products$.ProductName.length >= 15"><span>&#8369;</span>{{products$.Price}}</h6>
+            <h5 *ngIf="products$.ProductName.length < 15"><span>&#8369;</span>{{products$.Price}}</h5>
+        </div>
+    </div>
+</div>
+
+

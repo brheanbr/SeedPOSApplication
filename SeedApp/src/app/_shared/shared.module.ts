@@ -8,6 +8,7 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { AlertModule } from 'ngx-bootstrap/alert';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 
 
@@ -18,9 +19,13 @@ import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatButtonModule} from '@angular/material/button';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatRippleModule} from '@angular/material/core';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -32,6 +37,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     AccordionModule.forRoot(),
     CollapseModule.forRoot(),
     AlertModule.forRoot(),
+    CarouselModule.forRoot()
   ],
   exports: [
     FormsModule,
@@ -50,6 +56,10 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     MatTableModule,
     MatPaginatorModule,
     MatProgressBarModule,
+    MatRippleModule,
+    MatButtonToggleModule,
+    MatChipsModule,
+    MatSelectModule,
     CommonModule
   ]
 })

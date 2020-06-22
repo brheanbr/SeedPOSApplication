@@ -11,5 +11,6 @@ namespace Seed.API.Models
         public DateTime ProductCreated { get; set; }
         public Company Company { get; set; }
         public int CompanyId { get; set; }
+        public Order Orders { get; set; }
     }
 }

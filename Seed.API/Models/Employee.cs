@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Seed.API.Models
 {
@@ -17,6 +18,7 @@ namespace Seed.API.Models
         public byte[] PasswordSalt { get; set; }
         public Company Company { get; set; }
         public int CompanyId { get; set; }
+        public ICollection<Order> Orders { get; set; }
 
     }
 }

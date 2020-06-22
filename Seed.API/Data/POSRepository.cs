@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -53,6 +54,15 @@ namespace Seed.API.Data
                }
             }
             return true;
+        }
+
+        public async Task<IEnumerable<Order>> MakeOrder(Order order)
+        {
+            await _context.Orders.AddAsync(order);
+            await _context.SaveChangesAsync();
+            var orders = await _context.Orders.Include(x=>x.Company).ToListAsync();
+            return orders;
+
         }
     }
 }

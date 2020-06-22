@@ -11,7 +11,6 @@ import { SharedModule } from '../_shared/shared.module';
 
 import { AlertModule } from 'ngx-bootstrap/alert';
 
-import { DeveloperDashboardResolver } from '../_resolver/developer-dashboard.resolver';
 import { DeveloperRoutes } from './developer.routing';
 import { StoreModule } from '@ngrx/store';
 import { effects, reducers  } from './_store';
@@ -19,6 +18,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { ErrorInterceptorProvider } from '../_services/error.interceptor';
 import { CompanyDetailsComponent } from './developer-dashboard/company-setup/company-details/company-details.component';
 import { CompanyDetailsResolver } from './_resolver/company-details.resolver';
+
 import { FilterPipe } from '../_shared/_pipes/filter.pipe';
 import { FilterEmployeePipe } from '../_shared/_pipes/filterEmployee.pipe';
 

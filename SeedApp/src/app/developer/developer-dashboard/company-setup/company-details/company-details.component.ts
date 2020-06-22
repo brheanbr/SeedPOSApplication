@@ -19,10 +19,6 @@ import { Employee } from 'src/app/_models';
 })
 
 export class CompanyDetailsComponent implements OnInit {
-  constructor(private fb: FormBuilder, private store: Store<fromStore.CompanyAction>,
-              private prodStore: Store<fromStore.ProductAction>, private route: ActivatedRoute,
-              private alertify: AlertifyService, private modalService: BsModalService) { }
-
   selectedCompany$: Observable<Company>;
   companyError$: Observable<string>;
 
@@ -47,9 +43,13 @@ export class CompanyDetailsComponent implements OnInit {
   searchText: string;
   searchTextForEmployee: string;
   position: string;
-
-
   @ViewChild(MatSort, {static: true}) sort: MatSort;
+
+  constructor(private fb: FormBuilder, private store: Store<fromStore.CompanyAction>,
+              private prodStore: Store<fromStore.ProductAction>, private route: ActivatedRoute,
+              private alertify: AlertifyService, private modalService: BsModalService) { }
+
+
 
   ngOnInit() {
     this.store.dispatch(new fromStore.LoadCompany(this.route.snapshot.paramMap.get('companyId')));
