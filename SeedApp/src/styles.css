@@ -15,6 +15,6 @@
 }
 body {background-color: #f6eedf; min-width: 1300px;}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-/* body::-webkit-scrollbar {
+body::-webkit-scrollbar {
   display: none;
-} */
+}
