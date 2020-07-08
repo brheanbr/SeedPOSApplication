@@ -12,6 +12,7 @@ namespace Seed.API.Data
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderList> OrderLists { get; set; }
 
      
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -28,6 +29,7 @@ namespace Seed.API.Data
                 .WithMany(o => o.Orders)
                 .HasForeignKey(k => k.CompanyId)
                 .OnDelete(DeleteBehavior.Restrict);
+          
         //    modelBuilder.Entity<Subscription>()
         //     .HasKey(k => new {k.CompanyId, k.ConnectionStringId});
         //    modelBuilder.Entity<ConnectionStrings>()

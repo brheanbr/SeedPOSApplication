@@ -1,0 +1,51 @@
+<div class="notToPrint text-center">
+  <button (click)="print()">PRINT</button>
+</div>
+<div class="orderslip">
+  <div class="text-center toPrint" *ngIf="orderToPrint$ | async as orderToPrint$">
+    <h4>{{orderToPrint$.CustomerNumber}}</h4>
+    <h5 class="stickToTop">{{orderToPrint$.Transaction}}</h5>
+    <p class="stickToTop">ORDER#: {{orderToPrint$.OrderId}}</p>
+    <p style="margin-top: -20px;">CASHIER: {{orderToPrint$.Employee.FullName}}</p>
+    <p style="margin-top: -20px;">DATE: {{orderToPrint$.DateOrdered |  date:'MMM d, y'}}</p>
+    <p style="margin-top: -20px;">TIME: {{orderToPrint$.DateOrdered |  date:'mediumTime'}}</p>
+    <hr>
+    <div class="text-left">
+      <div class="row" style="font-weight: bold;">
+        <div class="col col-2"><small>Qty</small></div>
+        <div class="col col-5"><small>Price</small></div>
+        <div class="col col-5"><small>Amount</small></div>
+      </div>
+      <hr>
+      <div *ngFor="let orderlist of orderToPrint$.OrderLists">
+        <div class="row">
+          <div class="col"><small style="font-size: 16px;">{{orderlist.Item}}</small></div>
+        </div>
+        <div class="row">
+          <div class="col col-2"><small>{{orderlist.Qty}}</small></div>
+          <div class="col col-5"><small>@{{orderlist.Price | number}}</small></div>
+          <div class="col col-5"><small>{{orderlist.Total | number}}</small></div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <hr>
+    <div class="row">
+      <div class="col"><small class="text-left">SUBTOTAL</small></div>
+      <div class="col"><small class="text-right">{{orderToPrint$.Subtotal | number}}</small></div>
+    </div>
+    <div class="row">
+      <div class="col"><small class="text-left">DISCOUNT</small></div>
+      <div class="col"><small class="text-right">{{orderToPrint$.Discount}}</small></div>
+    </div>
+    <div class="row">
+      <div class="col"><small class="text-left">VAT</small></div>
+      <div class="col"><small class="text-right">{{orderToPrint$.Vat | number}}</small></div>
+    </div>
+    <hr>
+    <div class="row" style="margin-top: -20px;">
+      <div class="col"><small class="text-left" style="font-size: 16px;">GRANDTOTAL</small></div>
+      <div class="col"><small class="text-right"  style="font-size: 16px;">{{orderToPrint$.GrandTotal | number}}</small></div>
+    </div>
+  </div>
+</div>

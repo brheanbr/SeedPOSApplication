@@ -1,182 +1,198 @@
-<div *ngIf="cashierLoggedin()">
-  <div class="pos-container container-fluid">
-    <div class="row">
-      <div class="col col-lg-3 col-md-4 col-sm-12">
-        <form [formGroup]="orderForm">
-          <div class="card panels text-center">
-            <div class="container-fluid order-header">
+<div *ngIf="cashierLoggedin()" class="notToPrint">
+  <mat-sidenav-container class="main-container" autosize>
+    <mat-sidenav-content>
+      <div class="container-fluid">
+      <div class="row mt-4">
+        <div class="col col-lg-3 left-panel">
+          <form [formGroup]="orderForm" class="bg-light">
+            <div class="text-center order-form">
+              <div class="order-header" (click) ="centerpanel.selectedIndex = 0">
+                <div class="container-fluid">
                   <div class="row">
-                    <mat-form-field class="customer-number-field" color=accent>
-                      <mat-label>Customer #</mat-label>
-                      <input matInput type="text" formControlName="customerNumber">
-                      <button mat-button *ngIf="getCustomerNumber()" matSuffix mat-icon-button aria-label="Clear" (click)="createOrderForm()">
-                        <mat-icon>close</mat-icon>
-                      </button>
-                    </mat-form-field>
+                      <mat-form-field class="customer-number-field" color=accent>
+                        <mat-label>Customer #</mat-label>
+                        <input matInput type="text" formControlName="customerNumber" [ngClass]="{'is-invalid': orderForm.get('customerNumber').errors && orderForm.get('customerNumber').touched}">
+                        <div class="invalid-feedback" *ngIf="orderForm.get('customerNumber').hasError('required') && orderForm.get('customerNumber').touched">Customer number is required!</div>
+                        <button mat-button *ngIf="getCustomerNumber()" matSuffix mat-icon-button aria-label="Clear" (click)="createOrderForm()">
+                          <mat-icon>close</mat-icon>
+                        </button>
+                      </mat-form-field>
                   </div>
                   <div class="row">
-                    <mat-form-field class="customer-number-field" color = accent>
-                      <mat-label>Transaction</mat-label>
-                      <mat-select  matNativeControl required  formControlName="transaction">
-                        <mat-option value="Dine In">Dine In</mat-option>
-                        <mat-option value="Take Out">Take Out</mat-option>
-                      </mat-select>
-                    </mat-form-field>
+                      <mat-form-field class="customer-number-field" color = accent>
+                        <mat-label>Transaction</mat-label>
+                        <mat-select  matNativeControl required  formControlName="transaction">
+                          <mat-option value="Dine In">Dine In</mat-option>
+                          <mat-option value="Take Out">Take Out</mat-option>
+                        </mat-select>
+                      </mat-form-field>
                   </div>
-            </div>
-            <div class="container-fluid">
+                </div>
+              </div>
+              <div class="container-fluid" (click) = "centerpanel.selectedIndex = 0">
+                <div class="row">
+                    <div class="container-orders">
+                      <div class="text-center">
+                        <table mat-table #order order [dataSource]="dataSource">
+                          <ng-container matColumnDef="Qty">
+                            <th mat-header-cell *matHeaderCellDef class="bg-color-transparent"> Qty </th>
+                                <td mat-cell *matCellDef="let element; let i = index">
+                                  <img src="assets/minus.png" class="icons" (click)="qtyMinus(i)">
+                                    {{element.Qty}}
+                                  <img src="assets/plus.png" class="icons" (click)="qtyAdd(i)">
+                                </td>
+                          </ng-container>
+                          <ng-container matColumnDef="Item">
+                            <th mat-header-cell *matHeaderCellDef class="bg-color-transparent"> Item </th>
+                            <td mat-cell *matCellDef="let element">{{element.Item}}</td>
+                          </ng-container>
+                          <ng-container matColumnDef="Price">
+                            <th mat-header-cell *matHeaderCellDef class="bg-color-transparent"> Price </th>
+                            <td mat-cell *matCellDef="let element">{{element.Price | number}}</td>
+                          </ng-container>
+                          <ng-container matColumnDef="Total">
+                            <th mat-header-cell *matHeaderCellDef class="bg-color-transparent"> Total </th>
+                            <td mat-cell *matCellDef="let element">{{element.Total | number}}</td>
+                          </ng-container>
+                          <ng-container matColumnDef="Action">
+                            <th mat-header-cell *matHeaderCellDef class="bg-color-transparent"></th>
+                            <td mat-cell *matCellDef="let element; let i = index"><img src="assets/delete.png" class="icons" (click)="removeOrder(i)"></td>
+                          </ng-container>
+                          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                      </div> 
+                    </div>
+                </div>
+              </div>
+              <mat-divider></mat-divider>
               <div class="row">
-                  <div class="container-orders">
-                    <div class="text-center">
-                      <table mat-table #order order [dataSource]="dataSource">
-                        <ng-container matColumnDef="Qty">
-                          <th mat-header-cell *matHeaderCellDef class="bg-color-transparent"> Qty </th>
-                            <div class="container">
-                              <td mat-cell *matCellDef="let element; let i = index">
-                                <img src="assets/minus.png" class="icons" (click)="qtyMinus(i)">
-                                  {{element.qty}}
-                                <img src="assets/plus.png" class="icons" (click)="qtyAdd(i)">
-                              </td>
+                <div class="col">
+                  <h6 class="text-right mt-2">SUB TOTAL:</h6>
+                </div>
+                <div class="col">
+                  <h6 class="text-right mt-2 mr-5"><span>&#8369;</span>{{subTotal | number}}</h6>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="ml-5">
+                    <small>VAT:</small>
+                  </div>
+                </div>
+                <div class="col mr-1">
+                  <small>
+                    <mat-select formControlName="vat" class="text-right">
+                      <mat-option value="0" class="text-center">None</mat-option>
+                    </mat-select>
+                  </small>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="ml-5">
+                    <small class="text-right">DISCOUNT:</small>
+                  </div>
+                </div>
+                <div class="col mr-1">
+                  <small>
+                    <mat-select formControlName="discount" (openedChange)="getGrandTotal()" class="text-right">
+                      <mat-option value="0"  class="text-center">None</mat-option>
+                      <mat-option value="0.20"  class="text-center">20%</mat-option>
+                      <mat-option value="0.10"  class="text-center">10%</mat-option>
+                      <mat-option value="0.05"  class="text-center">5%</mat-option>
+                    </mat-select>
+                  </small>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <h5 class="text-right">GRAND TOTAL:</h5>
+                </div>
+                <div class="col">
+                  <h5 class="text-right mr-5"><span>&#8369;</span>{{grandTotal | number}}</h5>
+                </div>
+              </div>
+              <div class="row text-center">
+                <div class="col mt-3">
+                  <button [disabled]="!orderForm.valid" (click)="makeOrder();centerpanel.selectedIndex = 1" class="btn btn-success mb-3">Make Order <img src="assets/add.png" class="icons"></button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col col-lg-9">
+          <div class="container bg-light ">
+            <mat-tab-group [(selectedIndex)] ="selectedTabIndex" color = accent #centerpanel mat-align-tabs="center">
+              <mat-tab label="New Order">
+                  <div class="container-fluid mt-3">
+                    <div class="row">
+                      <div class="mt-2 product-search-field form-group">
+                        <div class="input-group text-center">
+                            <div class="input-group-prepend">
+                              <div *ngIf="searchText" class="input-group-text" (click)="searchText=''"><i class="fa fa-close"></i></div>
+                              <div *ngIf="!searchText" class="input-group-text"><i class="fa fa-search"></i></div>
                             </div>
-                        </ng-container>
-                        <ng-container matColumnDef="Item">
-                          <th mat-header-cell *matHeaderCellDef class="bg-color-transparent"> Item </th>
-                          <td mat-cell *matCellDef="let element"> {{element.item}} </td>
-                        </ng-container>
-                        <ng-container matColumnDef="Price">
-                          <th mat-header-cell *matHeaderCellDef class="bg-color-transparent"> Price </th>
-                          <td mat-cell *matCellDef="let element"> {{element.price | number}} </td>
-                        </ng-container>
-                        <ng-container matColumnDef="Total">
-                          <th mat-header-cell *matHeaderCellDef class="bg-color-transparent"> Total </th>
-                          <td mat-cell *matCellDef="let element"> {{element.total | number}} </td>
-                        </ng-container>
-                        <ng-container matColumnDef="Action">
-                          <th mat-header-cell *matHeaderCellDef class="bg-color-transparent"></th>
-                          <td mat-cell *matCellDef="let element; let i = index"><img src="assets/delete.png" class="icons" (click)="removeOrder(i)"></td>
-                        </ng-container>
-                        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                      </table>
-                    </div> 
-                  </div>
-              </div>
-            </div>
-            <mat-divider></mat-divider>
-            <div class="row">
-              <div class="col">
-                <h6 class="text-right mt-2">SUB TOTAL:</h6>
-              </div>
-              <div class="col">
-                <h6 class="text-right mt-2 mr-5"><span>&#8369;</span>{{subTotal | number}}</h6>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <h6 class="text-right">VAT:</h6>
-              </div>
-              <div class="col mr-1">
-                <mat-select formControlName="vat">
-                  <mat-option value="none" class="text-center">None</mat-option>
-                </mat-select>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <h6 class="text-right">DISCOUNT:</h6>
-              </div>
-              <div class="col mr-1">
-                <mat-select formControlName="discount" (openedChange)="getGrandTotal()" class="text-right">
-                  <mat-option value="0"  class="text-center">None</mat-option>
-                  <mat-option value="0.20"  class="text-center">20%</mat-option>
-                  <mat-option value="0.10"  class="text-center">10%</mat-option>
-                  <mat-option value="0.05"  class="text-center">5%</mat-option>
-                </mat-select>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <h4 class="text-right">GRAND TOTAL:</h4>
-              </div>
-              <div class="col">
-                <h4 class="text-right mr-5"><span>&#8369;</span>{{grandTotal | number}}</h4>
-              </div>
-            </div>
-            <div class="row text-center">
-              <div class="col mt-3">
-                <button (click)="makeOrder()" class="btn btn-success mb-3">Make Order <img src="assets/add.png" class="icons"></button>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="col col-lg-7 col-md-8 col-sm-12">
-        <div class="panels">
-          <mat-tab-group color = accent #centerpanel mat-align-tabs="center">
-            <mat-tab label="New Order">
-                <div class="container mt-3">
-                  <div class="row">
-                    <div class="mt-2 product-search-field form-group">
-                      <div class="input-group text-center">
-                          <div class="input-group-prepend">
-                            <div *ngIf="searchText" class="input-group-text" (click)="searchText=''"><i class="fa fa-close"></i></div>
-                            <div *ngIf="!searchText" class="input-group-text"><i class="fa fa-search"></i></div>
+                          <input class="form-control"  placeholder="search" [(ngModel)]="searchText">
+                        </div>          
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="container mt-3">
+                        <mat-chip-list>
+                          <div *ngFor="let type of itemType; let i = index">
+                            <mat-chip color="accent" selected *ngIf="searchType == type" (click)="searchType=''">{{type}}<img class="ml-2" *ngIf="searchType == type" src="assets/close.png" style="width: 20px ; height: 20px;">
+                            </mat-chip>
+                            <mat-chip color="accent" selected (click)="searchType = type" *ngIf="searchType != type">{{type}}<img class="ml-2" *ngIf="searchType == type" src="assets/close.png" style="width: 20px ; height: 20px;">
+                            </mat-chip>
                           </div>
-                        <input class="form-control"  placeholder="search" [(ngModel)]="searchText">
-                      </div>          
+                        </mat-chip-list>
+                      </div>
                     </div>
-                  </div>
-                  <div class="row">
-                    <div class="container mt-3">
-                      <mat-chip-list>
-                        <div *ngFor="let type of itemType; let i = index">
-                          <mat-chip color="accent" selected *ngIf="searchType == type" (click)="searchType=''">{{type}}<img class="ml-2" *ngIf="searchType == type" src="assets/close.png" style="width: 20px ; height: 20px;">
-                          </mat-chip>
-                          <mat-chip color="accent" selected (click)="searchType = type" *ngIf="searchType != type">{{type}}<img class="ml-2" *ngIf="searchType == type" src="assets/close.png" style="width: 20px ; height: 20px;">
-                          </mat-chip>
+                    <mat-divider class="mt-3"></mat-divider>
+                    <div class="container-menu-list">
+                      <div class="row mt-3" *ngIf="products$ | async as products$">
+                        <div class="col col-xl-2 col-lg-3 col-4 mb-3" *ngFor="let products of products$ | filterPosProducts:searchText | filterPosProducts:searchType">
+                          <app-product-card [products$]="products" (selectedProduct)="addOrder($event)"></app-product-card>  
                         </div>
-                      </mat-chip-list>
-                    </div>
-                  </div>
-                  <mat-divider class="mt-3"></mat-divider>
-                  <div class="container-menu-list">
-                    <div class="row mt-3" *ngIf="products$ | async as products$">
-                      <div class="col col-md-2 mb-3" *ngFor="let products of products$ | filterPosProducts:searchText | filterPosProducts:searchType">
-                        <app-product-card [products$]="products" (selectedProduct)="addOrder($event)"></app-product-card>  
                       </div>
                     </div>
                   </div>
+              </mat-tab>
+              <mat-tab  label="Orders">
+                <div class="container-fluid mt-3">
+                  <div *ngFor="let orders of unPaidOrders$ | async">
+                    <app-order-slip [orders$]="orders"></app-order-slip>
+                  </div>
                 </div>
-            </mat-tab>
-            <mat-tab  label="Orders">
-              <div class="">
-                orders
-              </div>
-            </mat-tab>
-            <mat-tab  label="Expenses">
-              <div class="">
-                Expenses
-              </div>
-            </mat-tab>
-            <mat-tab  label="Inventory">
-              <div class="">
-                Inventory
-              </div>
-            </mat-tab>
-            <mat-tab  label="Reports">
-              <div class="">
-                Reports
-              </div>
-            </mat-tab>
-        </mat-tab-group>
+              </mat-tab>
+              <mat-tab  label="Expenses">
+                <div class="">
+                  Expenses
+                </div>
+              </mat-tab>
+              <mat-tab  label="Inventory">
+                <div class="">
+                  Inventory
+                </div>
+              </mat-tab>
+              <mat-tab  label="Reports">
+                <div class="">
+                  Reports
+                </div>
+              </mat-tab>
+            </mat-tab-group>
+          </div>
         </div>
-        
       </div>
-      <div class="col col-lg-2 col-md-12 col-sm-12">
-        <div class="card panels">
-          <div class="container">
+    </div>
+    </mat-sidenav-content>
+    <mat-sidenav #drawer class="sidenav" mode="side" position="end" [fixedInViewport]="true" [fixedTopGap]="80">
+      <div class="container-fluid">
             <div class="row">
-              <div class="col col-md-12"><img src="assets/employee.png" class="container-fluid cashier-img"></div>
+              <div class="container text-center">
+                <img src="assets/employee.png" class="cashier-img">
+              </div>
             </div>
             <div class="row">
               <div class="container-fluid text-center">
@@ -213,13 +229,12 @@
             </div>
             <mat-divider></mat-divider>
             <h5 class="text-center mt-1">{{dateNow | date:'MMM d, y, h:mm:s a'}}</h5>
-          </div>
-        </div>
       </div>
-    </div>
-  </div>  
+    </mat-sidenav>
+  </mat-sidenav-container>
+  <div class="btn bg-success drawer-trigger" (click)="drawer.toggle()"><img src="assets/menu.png" class="home-icon"></div>
 </div>
-
 <div class="container" *ngIf="!cashierLoggedin()">
   <app-cashier-login></app-cashier-login>  
 </div>
+

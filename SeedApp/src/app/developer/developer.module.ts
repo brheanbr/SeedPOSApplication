@@ -13,7 +13,7 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 
 import { DeveloperRoutes } from './developer.routing';
 import { StoreModule } from '@ngrx/store';
-import { effects, reducers  } from './_store';
+import { effects, reducers  } from './_store/';
 import { EffectsModule } from '@ngrx/effects';
 import { ErrorInterceptorProvider } from '../_services/error.interceptor';
 import { CompanyDetailsComponent } from './developer-dashboard/company-setup/company-details/company-details.component';

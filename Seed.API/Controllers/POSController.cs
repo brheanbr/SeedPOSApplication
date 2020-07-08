@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -55,8 +56,28 @@ namespace Seed.API.Controllers
         {
             var order = _mapper.Map<Order>(orderToCreate);
             var createdOrder = await _repo.MakeOrder(order);
-            return Ok(createdOrder);
+            var orderToReturn = _mapper.Map<OrderToReturnDto>(createdOrder); 
+            return Ok(orderToReturn);
         }
+
+        [HttpGet("products/{id}")]
+        public async Task<IActionResult> GetProducts(int id)
+        {
+            var productsFromRepo = await _repo.GetProducts(id);
+            if( productsFromRepo == null )
+                return BadRequest("Can't Find Any Products");
+            var productsToReturn = _mapper.Map<IEnumerable<ProductToReturnDto>>(productsFromRepo);
+            return Ok(productsToReturn);
+        }
+
+        [HttpGet("unpaid-orders/{id}")]
+        public async Task<IActionResult> GetUnpaidOrders(int id)
+        {
+            var unpaidOrdersFromRepo = await _repo.GetUnpaidOrders(id);
+            var ordersToReturn = _mapper.Map<IEnumerable<OrderToReturnDto>>(unpaidOrdersFromRepo);
+            return Ok(ordersToReturn); 
+        }
+
 
     }
 }

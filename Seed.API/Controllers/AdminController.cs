@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using DatingApp.API.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Seed.API.Data;
 using Seed.API.Dtos;
+using Seed.API.Helpers;
 using Seed.API.Models;
 
 namespace Seed.API.Controllers
@@ -86,7 +88,20 @@ namespace Seed.API.Controllers
             return Ok(productToReturn);
         }
 
-        //Get products by Company
+        //Get products by Company with query params
+        // [HttpGet("products/{id}")]
+        // public async Task<IActionResult> GetProducts([FromQuery]ProductParams productParams, int id)
+        // {
+        //     var productsFromRepo = await _repo.GetProducts(productParams, id);
+        //     if( productsFromRepo == null )
+        //         return BadRequest("Can't Find Any Products");
+        //     var productsToReturn = _mapper.Map<IEnumerable<ProductToReturnDto>>(productsFromRepo);
+
+        //     Response.AddPagination(productsFromRepo.CurrentPage, productsFromRepo.PageSize, productsFromRepo.TotalCount, productsFromRepo.TotalPage);
+        //     return Ok(productsToReturn);
+        // }
+
+        
         [HttpGet("products/{id}")]
         public async Task<IActionResult> GetProducts(int id)
         {

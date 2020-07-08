@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
+using Seed.API.Models;
 
-namespace Seed.API.Models
+namespace Seed.API.Dtos
 {
-    public class Order
+    public class OrderToReturnDto
     {
         public int OrderId { get; set; }
         public int EmployeeId { get; set; }
-        public Employee Employee { get; set; }
+        public EmployeesToReturnDto Employee { get; set; }
         public int CompanyId { get; set; }
         public Company Company { get; set; }
         public ICollection<OrderList> OrderLists { get; set; }
@@ -19,6 +20,5 @@ namespace Seed.API.Models
         public decimal GrandTotal { get; set; }
         public bool IsPaid { get; set; }
         public DateTime DateOrdered { get; set; }
-        
     }
 }

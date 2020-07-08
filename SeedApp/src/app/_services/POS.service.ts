@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Employee } from '../_models/Employee';
+import { Order } from '../_models';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +38,20 @@ constructor(private http: HttpClient) { }
   }
 
   loadCompanyProducts(id: string) {
-    return this.http.get(environment.baseUrl + 'admin/products/' + id);
+    return this.http.get(environment.baseUrl + 'pos/products/' + id);
   }
+
+  makeOrder(order: Order) {
+    return this.http.post(environment.baseUrl + 'pos/make-order', order);
+  }
+
+  loadUnpaidOrders(id: string) {
+    return this.http.get(environment.baseUrl + 'pos/unpaid-orders/' + id);
+  }
+  print() {
+    window.print();
+
+  }
+
 
 }

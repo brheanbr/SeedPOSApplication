@@ -56,13 +56,26 @@ namespace Seed.API.Data
             return true;
         }
 
-        public async Task<IEnumerable<Order>> MakeOrder(Order order)
+        public async Task<Order> MakeOrder(Order order)
         {
             await _context.Orders.AddAsync(order);
             await _context.SaveChangesAsync();
-            var orders = await _context.Orders.Include(x=>x.Company).ToListAsync();
-            return orders;
+            var orderToReturn = await _context.Orders.Include(x => x.Employee).FirstOrDefaultAsync(x => x.OrderId == order.OrderId);
+            return orderToReturn;
 
+
+        }
+
+        public async Task<IEnumerable<Product>> GetProducts(int id)
+        {
+            var products = await _context.Products.Where(x => x.CompanyId == id).ToListAsync();
+            return products;
+        }
+
+        public async Task<IEnumerable<Order>> GetUnpaidOrders(int id)
+        {
+            var orders = await _context.Orders.Where(c => c.IsPaid == false && c.CompanyId == id).Include(x => x.OrderLists).ToListAsync();
+            return orders;
         }
     }
 }

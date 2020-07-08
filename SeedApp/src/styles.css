@@ -13,5 +13,8 @@
   text-align: center;
   color: white;
 }
-body { height: 100%; background-color: #f6eedf;}
+body {background-color: #f6eedf; min-width: 1300px;}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* body::-webkit-scrollbar {
+  display: none;
+} */

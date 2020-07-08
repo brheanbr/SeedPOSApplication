@@ -1,0 +1,38 @@
+.orderslip {
+    width: 58mm;
+    max-height: 180mm;
+}
+p,h1,small {
+    font-size: 15px !important;
+    font-family: monospace !important;
+    font-weight: 900;
+}
+.stickToTop {
+    margin-top: -10px;
+}
+hr {
+    border-top: 1px dashed black;
+}
+.toPrint {
+    width: 58mm !important;
+    margin: auto;
+}
+.qty-col {
+    width: 3px;
+}
+@media print {
+    .toPrint {
+        width: 45mm !important;
+        left: 1px;
+        top: 5px;
+        position: absolute;
+        display: block !important;
+        margin-bottom: 50px;
+    }
+    .qty-col {
+        width: 3px;
+    }
+    .notToPrint {
+        display: none !important;
+    }
+}

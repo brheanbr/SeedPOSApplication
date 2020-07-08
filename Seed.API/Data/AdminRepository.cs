@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Seed.API.Dtos;
+using Seed.API.Helpers;
 using Seed.API.Models;
 
 namespace Seed.API.Data
@@ -61,12 +62,18 @@ namespace Seed.API.Data
                 return true;
             return false;
         }
-
+        
         public async Task<IEnumerable<Product>> GetProducts(int id)
         {
-            var productToReturn = await _context.Products.Where(x => x.CompanyId == id).ToListAsync();
-            return(productToReturn);
+            var products = await _context.Products.Where(x => x.CompanyId == id).ToListAsync();
+            return products;
         }
+        //(IF GETTING THE PRODUCT WITH QUERY PARAMS)
+        // public async Task<PageList<Product>> GetProducts(ProductParams productParams, int id)
+        // {
+        //     var productToReturn =  _context.Products.Where(x => x.CompanyId == id);
+        //     return await PageList<Product>.CreateAsync(productToReturn, productParams.PageNumber, productParams.PageSize);
+        // }
 
         public async Task<Product> GetProduct(int id)
         {

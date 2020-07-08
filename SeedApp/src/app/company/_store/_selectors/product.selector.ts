@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store';
 import * as fromFeature from '../_reducers';
-import * as fromProduct from '../_reducers/product.reducers';
+import * as fromProduct from '../_reducers/product.reducer';
 
 
 const {

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Seed.API.Dtos;
+using Seed.API.Helpers;
 using Seed.API.Models;
 
 namespace Seed.API.Data
@@ -17,7 +18,9 @@ namespace Seed.API.Data
         Task<Company> GetCompany(int id);
 
         //Product
+        
         Task<IEnumerable<Product>> GetProducts(int id);
+        // Task<PageList<Product>> GetProducts(ProductParams productParams, int id); (IF GETTING THE PRODUCT WITH QUERY PARAMS)
         Task<Product> GetProduct(int id);
         Task<bool> ToRegisterProductExist(string ProductName, int CompanyId);
         Task<bool> ProductExist(string ProductName, int Id, int CompanyId);

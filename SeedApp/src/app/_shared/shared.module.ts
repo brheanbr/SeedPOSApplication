@@ -26,6 +26,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatRippleModule} from '@angular/material/core';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatSelectModule} from '@angular/material/select';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -60,6 +62,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatButtonToggleModule,
     MatChipsModule,
     MatSelectModule,
+    MatSidenavModule,
+    MatDialogModule,
     CommonModule
   ]
 })

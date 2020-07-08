@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Seed.API.Data;
 
 namespace Seed.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200622205817_AddedOrderEntity")]
+    partial class AddedOrderEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -138,9 +140,6 @@ namespace Seed.API.Migrations
 
                     b.Property<string>("CustomerNumber")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateOrdered")
-                        .HasColumnType("datetime2");
 
                     b.Property<decimal>("Discount")
                         .HasColumnType("decimal(18,2)");
