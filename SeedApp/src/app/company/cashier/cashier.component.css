@@ -1,7 +1,5 @@
 /* left panel */
-.left-panel {
-    position: relative;
-}
+
 .customer-number-field {
     width: 150px;
     margin: auto;
@@ -21,7 +19,7 @@
 }
 .container-orders {
     width: 100%;
-    height: 500px;
+    height: 400px;
     overflow: auto;
 }
 .container-orders::-webkit-scrollbar {
@@ -39,12 +37,9 @@
     text-align: center;
 }
 .container-mat-tab {
-    margin-top: 10px;
-    margin-bottom: 35px;
-    height: 800px;
+    width: 100%;
+    margin: 10px 0 35px 0;
     padding: 20px;
-    overflow: auto;
-    overflow-x: hidden;
 }
 table {
     width: 100%;
