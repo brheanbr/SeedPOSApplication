@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -76,6 +77,30 @@ namespace Seed.API.Controllers
             var unpaidOrdersFromRepo = await _repo.GetUnpaidOrders(id);
             var ordersToReturn = _mapper.Map<IEnumerable<OrderToReturnDto>>(unpaidOrdersFromRepo);
             return Ok(ordersToReturn); 
+        }
+        [HttpPost("checkout-order/{id}")]
+        public async Task<IActionResult> CheckoutOrder(int id)
+        {
+            var unpaidOrderFromRepo = await _repo.GetUnpaidOrder(id);
+            unpaidOrderFromRepo.IsPaid = true;
+            await _repo.SaveAll();
+            return NoContent();
+        }
+        [HttpPut("add-edit-order")]
+        public async Task<IActionResult> AddEditOrder(OrderToEditDto orderToEditDto)
+        {
+            var orderFromRepo = await _repo.GetUnpaidOrder(orderToEditDto.OrderId);
+            if(orderFromRepo == null) {
+                return BadRequest("Order Not Found");
+            }
+            _mapper.Map(orderToEditDto , orderFromRepo);
+            if(await _repo.SaveAll())
+            {
+                var editedOrderFromRepo = await _repo.GetUnpaidOrder(orderToEditDto.OrderId);
+                var orderToReturn = _mapper.Map<OrderToReturnDto>(editedOrderFromRepo);
+                return Ok(orderToReturn);
+            }
+            throw new Exception($"Updating product {orderToEditDto.OrderId} failed to save");
         }
 
 

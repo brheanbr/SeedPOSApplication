@@ -14,6 +14,7 @@ namespace Seed.API.Data
          Task<Order> MakeOrder(Order order);
          Task<IEnumerable<Product>> GetProducts(int id);
          Task<IEnumerable<Order>> GetUnpaidOrders(int id);
+         Task<Order> GetUnpaidOrder(int id);
     }
     
 }

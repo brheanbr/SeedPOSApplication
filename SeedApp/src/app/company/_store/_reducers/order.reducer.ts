@@ -60,6 +60,17 @@ export function orderReducer(state = initalState, action: fromOrder.OrderActions
                 error: action.payload
             };
         }
+        case fromOrder.CHECKOUT_ORDER_SUCCESS: {
+            return orderAdapter.removeOne(action.payload, state);
+        }
+        case fromOrder.CHECKOUT_ORDER_FAIL: {
+            return {
+                ...state,
+                loaded: false,
+                loading: false,
+                error: action.payload
+            };
+        }
         default:
             return state;
     }

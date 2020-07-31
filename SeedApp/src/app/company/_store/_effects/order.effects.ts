@@ -37,4 +37,16 @@ export class OrderEffects {
             )
         ),
     );
+
+    @Effect()
+    checkoutOrder$ = this.actions$
+    .pipe(
+        ofType<orderAction.CheckOutOrder>(orderAction.CHECKOUT_ORDER),
+        mergeMap((action: orderAction.CheckOutOrder) => this.posService.checkoutOrder(action.payload)
+        .pipe(
+            map(() => new orderAction.CheckOutOrderSuccess(action.payload)),
+            catchError(error => of(new orderAction.CheckOutOrderFail(error)))
+        )),
+
+    );
 }

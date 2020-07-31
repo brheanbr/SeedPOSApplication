@@ -56,13 +56,10 @@ export class CashierComponent implements OnInit {
     }, 1000);
     this.productStore.dispatch(new fromStore.LoadProduct(this.companyAuth.decodedToken.nameid));
     this.products$ = this.productStore.pipe(select(fromStore.getPOSProducts));
-    this.orderStore.dispatch(new fromStore.LoadOrders(this.companyAuth.decodedToken.nameid));
-    this.unPaidOrders$ = this.orderStore.pipe(select(fromStore.getUnpaidOrders));
+    // this.orderStore.dispatch(new fromStore.LoadOrders(this.companyAuth.decodedToken.nameid));
+    // this.unPaidOrders$ = this.orderStore.pipe(select(fromStore.getUnpaidOrders));
     this.orderToPrint$ = this.orderStore.pipe(select(fromStore.getLatestOrder));
-    console.log(this.orderToPrint$);
     this.createOrderForm();
-    this.orderForm.get('discount').setValue('0');
-    this.orderForm.get('vat').setValue('0');
   }
 
   createOrderForm() {
@@ -76,29 +73,71 @@ export class CashierComponent implements OnInit {
       isPaid: [false],
       dateOrdered: [this.dateNow.toLocaleString()]
     });
-    this.orderForm.addControl('employeeId', new FormControl(this.getCashierId()));
+    this.orderForm.get('discount').setValue('0');
+    this.orderForm.get('vat').setValue('0');
   }
   makeOrder() {
+    this.orderForm.addControl('employeeId', new FormControl(this.getCashierId()));
     this.orderForm.addControl('subTotal', new FormControl(this.getSubTotal()));
     this.orderForm.addControl('grandTotal', new FormControl(this.getGrandTotal()));
     const order = Object.assign({}, this.orderForm.value);
-    this.orderStore.dispatch(new fromStore.AddOrder(order));
+    console.log(order);
+    if (order.orderId != null) {
+      this.posService.addOrEditOrder(order).subscribe(
+        () => {
+          this.alertify.success('Registration succesful');
+        },
+        error => {
+          this.alertify.error(error);
+        }
+      );
+    } else {
+      this.orderStore.dispatch(new fromStore.AddOrder(order));
+    }
     this.resetOrderForm();
     this.openDialog();
   }
   openDialog() {
     this.dialog.open(OrderPrintingTemplateComponent, {disableClose: true});
   }
-  // printOrder() {
-  //   const printContent = document.getElementById('toPrint');
-  //   const WindowPrt = window.open('', '', 'left=0,top=0,width=900,height=900,toolbar=0,scrollbars=0,status=0');
-  //   // WindowPrt.document.write(printContent.innerHTML);
-  //   // WindowPrt.document.close();
-  //   // WindowPrt.focus();
-  //   window.print();
-  //   WindowPrt.close();
-  // }
-
+  checkOrderToAddOrEdit() {
+    const order =  Object.assign({}, this.orderForm.value);
+    if (order.orderId != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  editOrder(order: Order) {
+    for (let x = 0 ; x < order.OrderLists.length ; x++) {
+      this.orders[x] = order.OrderLists[x];
+    }
+    // this.orders = order.OrderLists;
+    this.dataSource._updateChangeSubscription();
+    this.orderForm = this.fb.group({
+      customerNumber: [order.CustomerNumber],
+      transaction: [order.Transaction],
+      companyId: [order.CompanyId],
+      orderLists: [this.dataSource.data],
+      vat: [''],
+      discount: [''],
+      isPaid: [order.IsPaid],
+      dateOrdered: [order.DateOrdered]
+    });
+    this.orderForm.addControl('orderId', new FormControl(order.OrderId));
+    this.orderForm.get('discount').setValue(order.Discount.toString());
+    this.orderForm.get('vat').setValue(order.Vat.toString());
+    this.orderForm.addControl('employeeId', new FormControl(this.getCashierId()));
+    this.orderForm.addControl('subTotal', new FormControl(this.getSubTotal()));
+    this.orderForm.addControl('grandTotal', new FormControl(this.getGrandTotal()));
+  }
+  tabLoader(event) {
+    const selectedTabChange = event.tab;
+    if (selectedTabChange.textLabel === 'Orders') {
+      this.orderStore.dispatch(new fromStore.LoadOrders(this.companyAuth.decodedToken.nameid));
+      this.unPaidOrders$ = this.orderStore.pipe(select(fromStore.getUnpaidOrders));
+    }
+  }
   resetOrderForm() {
     this.orderForm.reset();
     this.orders = [];
@@ -109,14 +148,6 @@ export class CashierComponent implements OnInit {
     this.subTotal = this.getSubTotal();
     this.orderForm.get('discount').setValue('0');
     this.orderForm.get('vat').setValue('0');
-  }
-
-  cashierLoggedin() {
-    return this.posService.loggedIn();
-  }
-  getCustomerNumber() {
-    const order = Object.assign({}, this.orderForm.value);
-    return order.customerNumber;
   }
   qtyAdd(x) {
     this.orders[x].Qty = this.orders[x].Qty + 1;
@@ -147,11 +178,20 @@ export class CashierComponent implements OnInit {
     this.subTotal = this.getSubTotal();
     this.grandTotal = this.getGrandTotal();
   }
+  getOrderId() {
+    const order = Object.assign({}, this.orderForm.value);
+    return order.orderId;
+  }
+  getCustomerNumber() {
+    const order = Object.assign({}, this.orderForm.value);
+    return order.customerNumber;
+  }
   getCashierId() {
     return this.posService.cashier.EmployeeId;
   }
   getSubTotal() {
-    return this.orders.reduce((acc, orders) => acc + orders.Total, 0);
+    this.subTotal = this.orders.reduce((acc, orders) => acc + orders.Total, 0);
+    return this.subTotal;
   }
   getGrandTotal() {
     const order = Object.assign({}, this.orderForm.value);
@@ -164,5 +204,8 @@ export class CashierComponent implements OnInit {
   logout() {
     localStorage.removeItem('cashier');
     this.alertify.success('Successfully Signed Out!');
+  }
+  cashierLoggedin() {
+    return this.posService.loggedIn();
   }
 }

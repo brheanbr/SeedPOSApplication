@@ -44,9 +44,16 @@ constructor(private http: HttpClient) { }
   makeOrder(order: Order) {
     return this.http.post(environment.baseUrl + 'pos/make-order', order);
   }
+  addOrEditOrder(order: Order) {
+    return this.http.put<Order>(environment.baseUrl + 'pos/add-edit-order', order);
+  }
 
   loadUnpaidOrders(id: string) {
     return this.http.get(environment.baseUrl + 'pos/unpaid-orders/' + id);
+  }
+
+  checkoutOrder(orderId: string) {
+    return this.http.post(environment.baseUrl + 'pos/checkout-order/' + orderId , {});
   }
   print() {
     window.print();

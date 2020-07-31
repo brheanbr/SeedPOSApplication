@@ -17,8 +17,5 @@ export class ProductCardComponent implements OnInit {
   selectProduct(product: Product) {
     this.selectedProduct.emit(product);
   }
-  printPage() {
-    window.print();
-  }
 
 }

@@ -1,3 +1,23 @@
 .card {
     border-radius: 15px;
+    height: 600px;
+    background-color: #f5f5f5;
+}
+.mat-header-cell {
+    text-align: center;
+    font-style: bold;
+    color: black;
+    font-size: 15px;
+    background-color: cadetblue;
+}
+.mat-footer-cell {
+    background-color: #c2dadb;
+    height: 100px;
+}
+.orderlist-container {
+    height: 100%;
+    overflow: auto;
+}
+.card-body {
+    padding: 0;
 }

@@ -10,6 +10,10 @@ export const LOAD_ORDERS = '[Order] Load Orders';
 export const LOAD_ORDERS_FAIL = '[Order] Load Orders Fail';
 export const LOAD_ORDERS_SUCCESS = '[Order] Load Orders Success';
 
+export const CHECKOUT_ORDER = '[Order] Checkout Order';
+export const CHECKOUT_ORDER_FAIL = '[Order] Checkout Order Fail';
+export const CHECKOUT_ORDER_SUCCESS = '[Order] Checkout Order Success';
+
 export class AddOrder implements Action {
     readonly type = ADD_ORDER;
     constructor(public payload: Order) {}
@@ -36,6 +40,18 @@ export class LoadOrdersSuccess implements Action {
     readonly type = LOAD_ORDERS_SUCCESS;
     constructor(public payload: Order[]) {}
 }
+export class CheckOutOrder implements Action {
+    readonly type = CHECKOUT_ORDER;
+    constructor(public payload: string) {}
+}
+export class CheckOutOrderFail implements Action {
+    readonly type = CHECKOUT_ORDER_FAIL;
+    constructor(public payload: string) {}
+}
+export class CheckOutOrderSuccess implements Action {
+    readonly type = CHECKOUT_ORDER_SUCCESS;
+    constructor(public payload: string) {}
+}
 
 export type OrderActions =
 | AddOrder
@@ -43,4 +59,7 @@ export type OrderActions =
 | AddOrderSuccess
 | LoadOrders
 | LoadOrdersFail
-| LoadOrdersSuccess;
+| LoadOrdersSuccess
+| CheckOutOrder
+| CheckOutOrderFail
+| CheckOutOrderSuccess;

@@ -77,5 +77,11 @@ namespace Seed.API.Data
             var orders = await _context.Orders.Where(c => c.IsPaid == false && c.CompanyId == id).Include(x => x.OrderLists).ToListAsync();
             return orders;
         }
+
+        public async Task<Order> GetUnpaidOrder(int id)
+        {
+            var order = await _context.Orders.Where(c => c.IsPaid == false && c.OrderId == id).Include(x => x.OrderLists).FirstOrDefaultAsync();
+            return order;
+        }
     }
 }
