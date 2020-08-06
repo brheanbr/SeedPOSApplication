@@ -123,5 +123,8 @@
       }
     }
   },
-  "defaultProject": "SeedApp"
+  "defaultProject": "SeedApp",
+  "cli": {
+    "analytics": false
+  }
 }

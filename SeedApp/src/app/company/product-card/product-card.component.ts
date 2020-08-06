@@ -8,7 +8,7 @@ import { Order } from 'src/app/_models/Order';
   styleUrls: ['./product-card.component.css']
 })
 export class ProductCardComponent implements OnInit {
-  @Input() products$;
+  @Input() products$: Product;
   @Output() selectedProduct = new EventEmitter();
   constructor() { }
 
